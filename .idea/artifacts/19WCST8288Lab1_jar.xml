@@ -2,7 +2,11 @@
   <artifact type="jar" name="19WCST8288Lab1:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/19WCST8288Lab1_jar</output-path>
     <root id="archive" name="19WCST8288Lab1.jar">
-      <element id="module-output" name="19WCST8288Lab1" />
+      <element id="module-output" name="19WCST8288Lab" />
+      <element id="directory" name="lib">
+        <element id="library" level="project" name="junit-jupiter-params-5.3.2" />
+        <element id="library" level="project" name="junit-platform-launcher-1.3.2" />
+      </element>
     </root>
   </artifact>
 </component>
