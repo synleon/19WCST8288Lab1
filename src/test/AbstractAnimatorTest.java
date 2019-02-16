@@ -23,13 +23,17 @@ import static org.junit.jupiter.api.Assertions.*;
 class AbstractAnimatorTest {
 
     private static AbstractAnimator animator;
+    private static AbstractAnimator animatorException1;
+    private static AbstractAnimator animatorException2;
     private static Point ptA, ptB, ptC, ptD, ptE, ptF, ptG, ptH, ptI;
 
     private final double EPSILON = 0.00000001f;
 
     @BeforeAll
     static void setUp() {
-        animator = new TextAnimator();
+        animator = new TextAnimator(4);
+        animatorException1 = new TextAnimator();
+        animatorException2 = new TextAnimator(6);
         ptA = new Point(100d, 100d);
         ptB = new Point(200d, 100d);
         ptC = new Point(200d, 200d);
@@ -141,4 +145,21 @@ class AbstractAnimatorTest {
                 Arguments.of(ptF.x(),ptF.y(), ptA.x(),ptA.y(), ptB.x(),ptB.y(), ptC.x(),ptC.y())
         );
     }
+
+    @Test
+    void exceptionNullPointerTesting() {
+        Throwable exception = assertThrows(NullPointerException.class, () -> {
+            animatorException1.intersect();
+        });
+        assertEquals("intersectResult array must be initilized in the constructor.", exception.getMessage());
+    }
+
+    @Test
+    void exceptionIllegalStateException() {
+        Throwable exception = assertThrows(IllegalStateException.class, () -> {
+            animatorException2.intersect();
+        });
+        assertEquals("intersectResult must have length of 4", exception.getMessage());
+    }
+
 }

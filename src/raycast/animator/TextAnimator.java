@@ -49,5 +49,13 @@ public class TextAnimator extends AbstractAnimator{
     public String toString() {
         return "Text animator";
     }
+
+    public TextAnimator() {
+        super();
+    }
+
+    public TextAnimator(int number) {
+        super(number);
+    }
 }
 

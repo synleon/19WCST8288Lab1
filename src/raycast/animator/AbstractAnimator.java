@@ -30,7 +30,12 @@ public abstract class AbstractAnimator extends AnimationTimer{
      */
     protected AbstractAnimator() {
         mouse = new Point();
-        intersectResult = new double[4];
+        // intersectResult = new double[4];
+    }
+
+    protected AbstractAnimator(int number) {
+        this();
+        intersectResult = new double[number];
     }
 
     /**
