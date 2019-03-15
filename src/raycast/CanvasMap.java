@@ -13,6 +13,10 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import raycast.animator.AbstractAnimator;
+import raycast.entity.geometry.PolyShape;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * this class represents the drawing area. it is backed by {@link Canvas} class.
@@ -38,6 +42,11 @@ public class CanvasMap {
      * most common functionally needed to draw animations of ray casting.
      */
     private AbstractAnimator animator;
+
+    /**
+     * list of shapes
+     */
+    private List<PolyShape> shapes;
 
     /**
      * <p>
@@ -147,7 +156,9 @@ public class CanvasMap {
         drawShapeJoints = new SimpleBooleanProperty();
         drawSectors = new SimpleBooleanProperty();
 
-        board = new Canvas();
+        board = new Canvas(640, 360);
+
+        shapes = new ArrayList<>(20);
     }
     /**
      * create the property class variables functions here
@@ -285,5 +296,29 @@ public class CanvasMap {
      */
     public double w() {
         return board.getWidth();
+    }
+
+    /**
+     * getter method for shapes
+     * @return
+     */
+    public List<PolyShape> shapes() {
+        return shapes;
+    }
+
+    /**
+     * Create a bunch of sample shapes
+     */
+    public void addSampleShapes() {
+        // TODO
+        PolyShape shape1 = new PolyShape();
+        shape1.setPoints(100, 150, 120, 50, 120, 50, 200, 80, 200, 80, 140, 210, 140, 210, 100, 150);
+        PolyShape shape2 = new PolyShape();
+        shape2.setPoints(100, 200, 120, 250, 120, 250, 60, 300, 60, 300, 100, 200);
+        PolyShape shape3 = new PolyShape();
+        shape3.setPoints(100, 160, 220, 150, 220, 150, 300, 200, 300, 200, 350, 320, 350, 320, 200, 260);
+        shapes.add(shape1);
+        shapes.add(shape2);
+        shapes.add(shape3);
     }
 }

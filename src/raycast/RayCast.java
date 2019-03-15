@@ -28,6 +28,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import raycast.animator.AbstractAnimator;
+import raycast.animator.StaticShapes;
 import raycast.animator.TextAnimator;
 
 import javax.tools.Tool;
@@ -120,6 +121,7 @@ public class RayCast extends Application{
         //Initialize the animators with FXCollections.observableArrayList and pass to it a new TextAnimator
         animators = FXCollections.observableArrayList();
         animators.add(new TextAnimator());
+        animators.add(new StaticShapes());
 
         //initialize the board object
         board = new CanvasMap();
