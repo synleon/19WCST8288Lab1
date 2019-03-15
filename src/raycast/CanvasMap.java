@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import raycast.animator.AbstractAnimator;
 import raycast.entity.geometry.PolyShape;
 
@@ -312,13 +313,14 @@ public class CanvasMap {
     public void addSampleShapes() {
         // TODO
         PolyShape shape1 = new PolyShape();
-        shape1.setPoints(100, 150, 120, 50, 120, 50, 200, 80, 200, 80, 140, 210, 140, 210, 100, 150);
-        PolyShape shape2 = new PolyShape();
-        shape2.setPoints(100, 200, 120, 250, 120, 250, 60, 300, 60, 300, 100, 200);
-        PolyShape shape3 = new PolyShape();
-        shape3.setPoints(100, 160, 220, 150, 220, 150, 300, 200, 300, 200, 350, 320, 350, 320, 200, 260);
+        shape1.setPoints(100, 150, 120, 50, 200, 80, 140, 210, 100, 150);
+        shape1.setFill(Color.LIGHTGRAY);
+//        PolyShape shape2 = new PolyShape();
+//        shape2.setPoints(100, 200, 120, 250, 120, 250, 60, 300, 60, 300, 100, 200);
+//        PolyShape shape3 = new PolyShape();
+//        shape3.setPoints(100, 160, 220, 150, 220, 150, 300, 200, 300, 200, 350, 320, 350, 320, 200, 260);
         shapes.add(shape1);
-        shapes.add(shape2);
-        shapes.add(shape3);
+//        shapes.add(shape2);
+//        shapes.add(shape3);
     }
 }

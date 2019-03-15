@@ -152,6 +152,8 @@ public class RayCast extends Application{
             a.setCanvas(board);
         }
 
+        board.addSampleShapes();
+
     }
 
     /**
