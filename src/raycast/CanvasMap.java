@@ -311,16 +311,16 @@ public class CanvasMap {
      * Create a bunch of sample shapes
      */
     public void addSampleShapes() {
-        shapes.add(new PolyShape().setPoints(100, 150, 120, 50, 200, 80, 140, 210)
-                .setWidth(5).setStroke(Color.DARKRED).setFill(Color.DARKTURQUOISE));
+        shapes.add(new PolyShape().setPoints(90, 120, 150, 50, 300, 80, 200, 250)
+                .setWidth(5).setStroke(Color.DARKRED).setFill(Color.LIGHTCORAL));
 
-        shapes.add(new PolyShape().randomize(600, 600, 133, 3, 7)
-                .setWidth(5).setStroke(Color.DARKRED).setFill(Color.DARKTURQUOISE));
+        shapes.add(new PolyShape().randomize(600, 600, 150, 4, 6)
+                .setWidth(5).setStroke(Color.DARKRED).setFill(Color.LIGHTCORAL));
 
-        shapes.add(new PolyShape().randomize(200, 550, 120, 3, 7)
-                .setWidth(5).setStroke(Color.DARKRED).setFill(Color.DARKTURQUOISE));
+        shapes.add(new PolyShape().randomize(150, 600, 150, 4, 6)
+                .setWidth(5).setStroke(Color.DARKRED).setFill(Color.LIGHTCORAL));
 
-        shapes.add(new PolyShape().randomize(550, 200, 120, 3, 7)
-                .setWidth(5).setStroke(Color.DARKRED).setFill(Color.DARKTURQUOISE));
+        shapes.add(new PolyShape().randomize(620, 160, 150, 4, 6)
+                .setWidth(5).setStroke(Color.DARKRED).setFill(Color.LIGHTCORAL));
     }
 }
