@@ -4,8 +4,6 @@ import java.util.List;
 
 import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -247,13 +245,14 @@ public class RayCast extends Application{
         //only FPS is selected the rest are false.
         //as last argument get the equivalent property from CanvasMap
         CheckMenuItem FPS = createCheckMenuItem("FPS", true, board.drawFPSProperty());
-        CheckMenuItem Intersects = createCheckMenuItem("Intersects", false, board.drawIntersectPointProperty());
-        CheckMenuItem Lights = createCheckMenuItem("Lights", false, board.drawLightSourceProperty());
-        CheckMenuItem Joints = createCheckMenuItem("Joints", false, board.drawShapeJointsProperty());
+//        CheckMenuItem Intersects = createCheckMenuItem("Intersects", false, board.drawIntersectPointProperty());
+//        CheckMenuItem Lights = createCheckMenuItem("Lights", false, board.drawLightSourceProperty());
+//        CheckMenuItem Joints = createCheckMenuItem("Joints", false, board.drawShapeJointsProperty());
         CheckMenuItem Bounds = createCheckMenuItem("Bounds", false, board.drawBoundsProperty());
-        CheckMenuItem Sectors = createCheckMenuItem("Sectors", false, board.drawSectorsProperty());
+//        CheckMenuItem Sectors = createCheckMenuItem("Sectors", false, board.drawSectorsProperty());
 
-        MenuButton options = new MenuButton("Options", null, FPS, Intersects, Lights, Joints, Bounds, Sectors);
+//        MenuButton options = new MenuButton("Options", null, FPS, Intersects, Lights, Joints, Bounds, Sectors);
+        MenuButton options = new MenuButton("Options", null, FPS, Bounds);
 
         //Initialize animatorsBox with the animators list
         animatorsBox = new ChoiceBox<>(animators);

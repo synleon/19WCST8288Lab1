@@ -33,7 +33,7 @@ public class RectangleBounds implements DrawableObject<RectangleBounds> {
         start = new Point();
         dimension = new Point();
         fill = Color.LIGHTPINK;
-        stroke = Color.RED;
+        stroke = Color.DARKGREEN;
         strokeWidth = 2;
     }
 
@@ -357,6 +357,8 @@ public class RectangleBounds implements DrawableObject<RectangleBounds> {
     public void draw(GraphicsContext gc) {
         gc.setStroke(stroke);
         gc.setLineWidth(strokeWidth);
+        gc.setLineDashes(10);
         gc.strokeRect(x(), y(), w(), h());
+        gc.setLineDashes(null);
     }
 }
