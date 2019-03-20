@@ -31,7 +31,6 @@ import raycast.animator.AbstractAnimator;
 import raycast.animator.StaticShapes;
 import raycast.animator.TextAnimator;
 
-import javax.tools.Tool;
 
 /**
  * this is the start of JavaFX application. this class must extend {@link Application}.
@@ -47,7 +46,7 @@ public class RayCast extends Application{
     /**
      * size of the scene
      */
-    private double width = 700, height = 700;
+    private double width = 800, height = 800;
     /**
      * title of application
      */
@@ -185,7 +184,7 @@ public class RayCast extends Application{
         primaryStage.show();
         //select first index of animatorsBox as start,
         //this will also sets the new animator as the lambda we setup will be triggered
-        animatorsBox.getSelectionModel().select(0);
+        animatorsBox.getSelectionModel().select(1);
     }
 
     /**

@@ -9,7 +9,6 @@ import raycast.entity.FpsCounter;
 import raycast.entity.geometry.PolyShape;
 import utility.Point;
 
-import java.awt.*;
 import java.util.Objects;
 
 /**
@@ -102,7 +101,7 @@ public abstract class AbstractAnimator extends AnimationTimer {
 
         handle(gc, now);
 
-        if (map.getDrawShapeJoints()) {
+        if (map.getDrawShapeJoints() || map.getDrawBounds()) {
             for (PolyShape shape : map.shapes()) {
                 if (map.getDrawBounds()) {
                     shape.getBounds().draw(gc);

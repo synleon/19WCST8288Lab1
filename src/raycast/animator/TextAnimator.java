@@ -35,7 +35,7 @@ public class TextAnimator extends AbstractAnimator{
     void handle(GraphicsContext gc, long now) {
         gc.save();
         gc.setFont(Font.font(gc.getFont().getFamily(), FontWeight.BLACK, 50));
-        gc.setFill(Color.MAGENTA);
+        gc.setFill(Color.LIGHTGRAY);
         gc.fillText("CST 8288 - Ray Cast", mouse.x(), mouse.y());
         gc.setStroke(Color.BLACK);
         gc.strokeText("CST 8288 - Ray Cast", mouse.x(), mouse.y());

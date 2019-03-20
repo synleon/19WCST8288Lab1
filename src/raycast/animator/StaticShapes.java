@@ -18,7 +18,7 @@ public class StaticShapes extends AbstractAnimator {
         super(number);
     }
 
-    private final Color BACKGROUND = Color.AQUA;
+    private final Color BACKGROUND = Color.DARKGREY;
     @Override
     void handle(GraphicsContext gc, long now) {
         clearAndFill(gc, BACKGROUND);

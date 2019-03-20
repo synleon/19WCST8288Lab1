@@ -2,7 +2,11 @@ package raycast.entity.geometry;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import raycast.entity.DrawableObject;
+
+import java.util.Arrays;
+import java.util.Random;
 
 /**
  * class representing a shape of polygon
@@ -59,8 +63,6 @@ public class PolyShape implements DrawableObject<PolyShape> {
 
         // set stroke to black
         setStroke(Color.BLACK);
-
-
     }
 
     @Override
@@ -112,7 +114,7 @@ public class PolyShape implements DrawableObject<PolyShape> {
         }
 
         if (fill != null) {
-            setFill(fill);
+            gc.setFill(fill);
             gc.fillPolygon(points[0], points[1], pointCount);
         }
     }
@@ -124,8 +126,12 @@ public class PolyShape implements DrawableObject<PolyShape> {
      */
     public void drawCorners(GraphicsContext gc) {
         for (int i = 0; i < pointCount; i++) {
+            Paint fill = gc.getFill();
+            gc.setFill(Color.BLACK);
             gc.fillText(Integer.toString(i), points[0][i] - 5, points[1][i] - 5);
             gc.fillOval(points[0][i] - 5, points[1][i] - 5, 10, 10);
+            gc.setStroke(fill);
+
         }
     }
 
@@ -198,6 +204,34 @@ public class PolyShape implements DrawableObject<PolyShape> {
      * @return
      */
     public PolyShape randomize(double centerX, double centerY, double size, int minPoints, int maxPoints) {
+        pointCount = minPoints + (int)(Math.random() * (maxPoints - minPoints) + 1);
+        points = new double[2][pointCount];
+
+        // randomly generates angles
+        double thetas[] = new double[pointCount];
+        for (int i = 0; i < pointCount; ++i) {
+            thetas[i] = Math.random() * 360;
+        }
+
+        // sort angles ascending
+        Arrays.sort(thetas);
+
+        minX = minY = Double.POSITIVE_INFINITY;
+        maxX = maxY = Double.NEGATIVE_INFINITY;
+
+        for (int j = 0; j < pointCount; ++j) {
+            // generate R randomly
+            double r = Math.random() * size + 1;
+            // vertex of polygon described in polar coordinates
+            points[0][j] = r * Math.cos(Math.toRadians(thetas[j])) + centerX;
+            points[1][j] = r * Math.sin(Math.toRadians(thetas[j])) + centerY;
+
+            updateMinMax(points[0][j], points[1][j]);
+        }
+
+        // initialize rectangle bounds
+        bounds = new RectangleBounds(minX, minY, maxX - minX, maxY - minY);
+
         return this;
     }
 

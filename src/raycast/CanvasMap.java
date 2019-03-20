@@ -157,7 +157,7 @@ public class CanvasMap {
         drawShapeJoints = new SimpleBooleanProperty();
         drawSectors = new SimpleBooleanProperty();
 
-        board = new Canvas(640, 360);
+        board = new Canvas();
 
         shapes = new ArrayList<>(20);
     }
@@ -311,16 +311,16 @@ public class CanvasMap {
      * Create a bunch of sample shapes
      */
     public void addSampleShapes() {
-        // TODO
-        PolyShape shape1 = new PolyShape();
-        shape1.setPoints(100, 150, 120, 50, 200, 80, 140, 210, 100, 150);
-        shape1.setFill(Color.LIGHTGRAY);
-//        PolyShape shape2 = new PolyShape();
-//        shape2.setPoints(100, 200, 120, 250, 120, 250, 60, 300, 60, 300, 100, 200);
-//        PolyShape shape3 = new PolyShape();
-//        shape3.setPoints(100, 160, 220, 150, 220, 150, 300, 200, 300, 200, 350, 320, 350, 320, 200, 260);
-        shapes.add(shape1);
-//        shapes.add(shape2);
-//        shapes.add(shape3);
+        shapes.add(new PolyShape().setPoints(100, 150, 120, 50, 200, 80, 140, 210)
+                .setWidth(5).setStroke(Color.DARKRED).setFill(Color.DARKTURQUOISE));
+
+        shapes.add(new PolyShape().randomize(600, 600, 133, 3, 7)
+                .setWidth(5).setStroke(Color.DARKRED).setFill(Color.DARKTURQUOISE));
+
+        shapes.add(new PolyShape().randomize(200, 550, 120, 3, 7)
+                .setWidth(5).setStroke(Color.DARKRED).setFill(Color.DARKTURQUOISE));
+
+        shapes.add(new PolyShape().randomize(550, 200, 120, 3, 7)
+                .setWidth(5).setStroke(Color.DARKRED).setFill(Color.DARKTURQUOISE));
     }
 }
