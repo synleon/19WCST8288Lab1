@@ -1,5 +1,7 @@
-package raycast;
+package dungeonshooter;
 
+import dungeonshooter.animator.AbstractAnimator;
+import dungeonshooter.entity.PolyShape;
 import javafx.animation.AnimationTimer;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -13,8 +15,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import raycast.animator.AbstractAnimator;
-import raycast.entity.geometry.PolyShape;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -311,16 +311,16 @@ public class CanvasMap {
      * Create a bunch of sample shapes
      */
     public void addSampleShapes() {
-        shapes.add(new PolyShape().setPoints(90, 120, 150, 50, 300, 80, 200, 250)
-                .setWidth(5).setStroke(Color.DARKRED).setFill(Color.LIGHTCORAL));
+        shapes.add(new PolyShape().setPoints(90, 120, 150, 50, 300, 80, 200, 250));
+                //.setWidth(5).setStroke(Color.DARKRED).setFill(Color.LIGHTCORAL));
 
-        shapes.add(new PolyShape().randomize(600, 600, 150, 4, 6)
-                .setWidth(5).setStroke(Color.DARKRED).setFill(Color.LIGHTCORAL));
+        shapes.add(new PolyShape().randomize(600, 600, 150, 4, 6));
+                //.setWidth(5).setStroke(Color.DARKRED).setFill(Color.LIGHTCORAL));
 
-        shapes.add(new PolyShape().randomize(150, 600, 150, 4, 6)
-                .setWidth(5).setStroke(Color.DARKRED).setFill(Color.LIGHTCORAL));
+        shapes.add(new PolyShape().randomize(150, 600, 150, 4, 6));
+                //.setWidth(5).setStroke(Color.DARKRED).setFill(Color.LIGHTCORAL));
 
-        shapes.add(new PolyShape().randomize(620, 160, 150, 4, 6)
-                .setWidth(5).setStroke(Color.DARKRED).setFill(Color.LIGHTCORAL));
+        shapes.add(new PolyShape().randomize(620, 160, 150, 4, 6));
+                //.setWidth(5).setStroke(Color.DARKRED).setFill(Color.LIGHTCORAL));
     }
 }

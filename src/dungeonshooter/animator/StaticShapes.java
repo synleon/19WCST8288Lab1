@@ -1,8 +1,8 @@
-package raycast.animator;
+package dungeonshooter.animator;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import raycast.entity.geometry.PolyShape;
+import dungeonshooter.entity.PolyShape;
 
 
 /**
@@ -23,7 +23,7 @@ public class StaticShapes extends AbstractAnimator {
     void handle(GraphicsContext gc, long now) {
         clearAndFill(gc, BACKGROUND);
         for (PolyShape shape : map.shapes()) {
-            shape.draw(gc);
+            shape.getDrawable().draw(gc);
         }
     }
 

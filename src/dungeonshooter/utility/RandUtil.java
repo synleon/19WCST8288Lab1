@@ -1,9 +1,9 @@
-package utility;
+package dungeonshooter.utility;
 
 import java.util.Random;
 
 /**
- * a utility class for using {@link Random}. aside from extra functionality
+ * a dungeonshooter.utility class for using {@link Random}. aside from extra functionality
  * it also provides the same random seed to all the project.
  *
  * @author Shahriar (Shawn) Emami

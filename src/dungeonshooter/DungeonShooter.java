@@ -1,7 +1,10 @@
-package raycast;
+package dungeonshooter;
 
 import java.util.List;
 
+import dungeonshooter.animator.AbstractAnimator;
+import dungeonshooter.animator.StaticShapes;
+import dungeonshooter.animator.TextAnimator;
 import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
@@ -25,9 +28,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import raycast.animator.AbstractAnimator;
-import raycast.animator.StaticShapes;
-import raycast.animator.TextAnimator;
 
 
 /**
@@ -39,7 +39,7 @@ import raycast.animator.TextAnimator;
  * @author Shahriar (Shawn) Emami
  * @version Jan 7, 2019
  */
-public class RayCast extends Application{
+public class DungeonShooter extends Application{
 
     /**
      * size of the scene
@@ -48,7 +48,7 @@ public class RayCast extends Application{
     /**
      * title of application
      */
-    private String title = "RayCast";
+    private String title = "DungeonShooter";
     /**
      * background color of application
      */
@@ -68,7 +68,7 @@ public class RayCast extends Application{
      * -----------------------
      * </pre>
      *
-     * this object is passed to {@link Scene} object in {@link RayCast#start(Stage)} method.
+     * this object is passed to {@link Scene} object in {@link DungeonShooter#start(Stage)} method.
      */
     private BorderPane root;
     /**
@@ -85,7 +85,7 @@ public class RayCast extends Application{
      * {@link ObservableList} is a wrapper of a normal {@link List} data structure. the difference being
      * {@link ObservableList} is capable of notifying any observer that the list has been changed if
      * elements have been added, removed or the list is changed in any manner. the best way to initialize
-     * any ObservableList is to use the utility class {@link FXCollections}.
+     * any ObservableList is to use the dungeonshooter.utility class {@link FXCollections}.
      * </p>
      *
      * <pre>

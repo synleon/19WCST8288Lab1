@@ -1,13 +1,13 @@
-package raycast.animator;
+package dungeonshooter.animator;
 
+import dungeonshooter.CanvasMap;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import raycast.CanvasMap;
-import raycast.entity.FpsCounter;
-import raycast.entity.geometry.PolyShape;
-import utility.Point;
+import dungeonshooter.entity.FpsCounter;
+import dungeonshooter.entity.PolyShape;
+import dungeonshooter.utility.Point;
 
 import java.util.Objects;
 
@@ -104,10 +104,7 @@ public abstract class AbstractAnimator extends AnimationTimer {
         if (map.getDrawShapeJoints() || map.getDrawBounds()) {
             for (PolyShape shape : map.shapes()) {
                 if (map.getDrawBounds()) {
-                    shape.getBounds().draw(gc);
-                }
-                if (map.getDrawShapeJoints()) {
-                    shape.drawCorners(gc);
+                    shape.getDrawable().draw(gc);
                 }
             }
         }

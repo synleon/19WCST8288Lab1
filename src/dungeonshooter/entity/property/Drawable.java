@@ -1,29 +1,30 @@
-package raycast.entity;
+package dungeonshooter.entity.property;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
 
 /**
  * an interface used on drawable objects.
  *
- * @param <T> - the type of class the implements this interface.
+ * @param <T> - the type of class which implements this interface.
  * @author Shahriar (Shawn) Emami
  * @version Jan 12, 2019
  */
-public interface DrawableObject<T>{
+public interface Drawable<T extends Sprite>{
     /**
-     * set the {@link Color} to be used when filling the shape
-     * @param color - {@link Color} color object
+     * set the {@link Paint} to be used when filling the shape
+     * @param paint - an object representing fill content like {@link Paint} or {@link ImagePattern} object
      * @return the instance of current object
      */
-    T setFill( Color color);
+    T setFill( Paint paint);
 
     /**
-     * set the {@link Color} to be used when stroking the shape
-     * @param color - {@link Color} color object
+     * set the {@link Paint} to be used when stroking the shape
+     * @param paint - an object representing fill content like {@link Paint} or {@link ImagePattern} object
      * @return the instance of current object
      */
-    T setStroke( Color color);
+    T setStroke( Paint paint);
 
     /**
      * set the stroke width to be used when stroking the shape
@@ -34,15 +35,15 @@ public interface DrawableObject<T>{
 
     /**
      * get the current fill {@link Color}
-     * @return {@link Color}
+     * @return {@link Paint}
      */
-    Color getFill();
+    Paint getFill();
 
     /**
      * get the current stroke {@link Color}
-     * @return {@link Color}
+     * @return {@link Paint}
      */
-    Color getStroke();
+    Paint getStroke();
 
     /**
      * get the current stroke width

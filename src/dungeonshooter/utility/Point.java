@@ -1,4 +1,4 @@
-package utility;
+package dungeonshooter.utility;
 
 import java.util.Objects;
 import javafx.beans.property.DoubleProperty;
@@ -47,13 +47,61 @@ public class Point{
     }
 
     /**
-     * move the point to a new location by the given distance
+     * create a new point from given point
+     */
+    public Point( Point p){
+        this( p.x(), p.y());
+    }
+
+    public Point bind(Point p){
+        x.bind( p.x);
+        y.bind( p.y);
+        return this;
+    }
+
+    public Point unbind(){
+        x.unbind();
+        y.unbind();
+        return this;
+    }
+
+    public Point bindBidirectional(Point p){
+        x.bindBidirectional( p.x);
+        y.bindBidirectional( p.y);
+        return this;
+    }
+
+    public Point unbindBidirectional(Point p){
+        x.unbindBidirectional( p.x);
+        y.unbindBidirectional( p.y);
+        return this;
+    }
+
+    /**
+     * translate the point to a new location by the given distance
      * @param dx - amount to move in x direction
      * @param dy - amount to move in y direction
      */
     public void translate( double dx, double dy){
         x(x()+dx);
         y(y()+dy);
+    }
+
+    /**
+     * move the current point to x and y
+     * @param x - new value of x
+     * @param y - new value of y
+     */
+    public void move( double x, double y){
+        set( x, y);
+    }
+
+    /**
+     * move the current point to a new point p
+     * @param p - new point
+     */
+    public void move( Point p){
+        set( p.x(), p.y());
     }
 
     /**
@@ -231,3 +279,4 @@ public class Point{
                 .y( RandUtil.getDouble( marginY, h - marginY));
     }
 }
+
