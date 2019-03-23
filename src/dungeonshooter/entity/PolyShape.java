@@ -1,6 +1,5 @@
 package dungeonshooter.entity;
 
-import dungeonshooter.entity.geometry.RectangleBounds;
 import dungeonshooter.entity.property.HitBox;
 import dungeonshooter.entity.property.Sprite;
 import javafx.scene.canvas.GraphicsContext;
@@ -68,11 +67,6 @@ public class PolyShape implements Entity {
     public PolyShape() {
         // initialize sprite
         sprite = new Sprite() {
-            {
-                setFill( new ImagePattern( new Image( "file:assets/concrete/dsc_1621.png")));
-                setWidth(1.0f);
-                setStroke(Color.BLACK);
-            }
             @Override
             public void draw(GraphicsContext gc) {
                 // set line width
@@ -89,6 +83,10 @@ public class PolyShape implements Entity {
                 }
             }
         };
+        sprite.setFill( new ImagePattern( new Image( "file:assets/concrete/dsc_1621.png")))
+                .setWidth(1.0f).setStroke(Color.BLACK);
+
+        hitBox = new HitBox();
     }
 
 //    @Override
@@ -204,6 +202,7 @@ public class PolyShape implements Entity {
 
         // initialize rectangle bounds
         // bounds = new RectangleBounds(minX, minY, maxX - minX, maxY - minY);
+        hitBox.setBounds(minX, minY, maxX - minX, maxY - minY);
         return this;
     }
 
@@ -257,6 +256,7 @@ public class PolyShape implements Entity {
 
         // initialize rectangle bounds
         // bounds = new RectangleBounds(minX, minY, maxX - minX, maxY - minY);
+        hitBox.setBounds(minX, minY, maxX - minX, maxY - minY);
 
         return this;
     }

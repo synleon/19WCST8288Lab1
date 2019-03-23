@@ -32,7 +32,7 @@ public class TextAnimator extends AbstractAnimator{
      */
 
     @Override
-    void handle(GraphicsContext gc, long now) {
+    public void handle(GraphicsContext gc, long now) {
         gc.save();
         gc.setFont(Font.font(gc.getFont().getFamily(), FontWeight.BLACK, 50));
         gc.setFill(Color.LIGHTGRAY);
@@ -52,10 +52,6 @@ public class TextAnimator extends AbstractAnimator{
 
     public TextAnimator() {
         super();
-    }
-
-    public TextAnimator(int number) {
-        super(number);
     }
 }
 

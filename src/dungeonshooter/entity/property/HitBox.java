@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 /**
  * class representing the outer rectangular bounds of a shape
  */
-public class HitBox implements Entity {
+public class HitBox{
     private Point prev;
     private RectangleBounds bounds;
     private Sprite sprite;
@@ -40,7 +40,6 @@ public class HitBox implements Entity {
     /**
      * update the entity
      */
-    @Override
     public void update() {
 
     }
@@ -50,7 +49,6 @@ public class HitBox implements Entity {
      *
      * @return - true if has a hitbox - false if doesn't has a hitbox
      */
-    @Override
     public boolean hasHitbox() {
         return false;
     }
@@ -60,9 +58,8 @@ public class HitBox implements Entity {
      *
      * @return the sprite
      */
-    @Override
-    public Drawable<?> getDrawable() {
-        return null;
+    public Sprite getDrawable() {
+        return sprite;
     }
 
     /**
@@ -70,9 +67,8 @@ public class HitBox implements Entity {
      *
      * @return - true if drawable - false if not
      */
-    @Override
     public boolean isDrawable() {
-        return false;
+        return true;
     }
 
     /**

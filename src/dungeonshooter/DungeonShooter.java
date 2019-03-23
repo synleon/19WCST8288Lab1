@@ -2,19 +2,20 @@ package dungeonshooter;
 
 import java.util.List;
 
-import dungeonshooter.animator.AbstractAnimator;
-import dungeonshooter.animator.StaticShapes;
-import dungeonshooter.animator.TextAnimator;
+import dungeonshooter.animator.Animator;
+import dungeonshooter.entity.PlayerInput;
 import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.Spinner;
@@ -33,18 +34,17 @@ import javafx.stage.Stage;
 /**
  * this is the start of JavaFX application. this class must extend {@link Application}.
  *
- * @see <a href="https://stackoverflow.com/a/565282/764951">Two line segments intersect</a>
- * @see <a href="https://ncase.me/sight-and-light/">Sight and Light, simple ray cast tutorial</a>
- *
  * @author Shahriar (Shawn) Emami
  * @version Jan 7, 2019
+ * @see <a href="https://stackoverflow.com/a/565282/764951">Two line segments intersect</a>
+ * @see <a href="https://ncase.me/sight-and-light/">Sight and Light, simple ray cast tutorial</a>
  */
-public class DungeonShooter extends Application{
+public class DungeonShooter extends Application {
 
     /**
      * size of the scene
      */
-    private double width = 800, height = 800;
+    private double width = 700, height = 700;
     /**
      * title of application
      */
@@ -67,7 +67,7 @@ public class DungeonShooter extends Application{
      * |       bottom        |
      * -----------------------
      * </pre>
-     *
+     * <p>
      * this object is passed to {@link Scene} object in {@link DungeonShooter#start(Stage)} method.
      */
     private BorderPane root;
@@ -75,10 +75,21 @@ public class DungeonShooter extends Application{
      * this object represents the canvas (drawing area)
      */
     private CanvasMap board;
+
     /**
-     * this is a ChoiceBox that holds all different animators available
+     * <p>
+     * create a {@link Canvas} object call board. it provides the tools to draw in JavaFX. this is also a {@link Node}
+     * which means can be added to our JavaFX application. the object needed to draw on a {@link Canvas}
+     * is {@link GraphicsContext} which is retrieved using {@link Canvas#getGraphicsContext2D()} method.
+     * </p>
      */
-    private ChoiceBox<AbstractAnimator> animatorsBox;
+    private Canvas canvas;
+
+    private PlayerInput input;
+//    /**
+//     * this is a ChoiceBox that holds all different animators available
+//     */
+//    private ChoiceBox<AbstractAnimator> animatorsBox;
     /**
      * <p>
      * a list of all animators available.<br>
@@ -96,7 +107,7 @@ public class DungeonShooter extends Application{
      * 		System.out.println( added);
      * 		List< ? extends Integer> removed = c.getRemoved();
      * 		System.out.println( removed);
-     * 	}
+     *    }
      * });
      * nums.addAll( 1, 2, 3, 4, 5, 6, 7, 8, 9);
      * nums.removeAll( 1, 3, 5, 7, 9);
@@ -106,7 +117,7 @@ public class DungeonShooter extends Application{
      * however, in this application we are not using this feature of list.
      * </p>
      */
-    private ObservableList<AbstractAnimator> animators;
+//    private ObservableList<AbstractAnimator> animators;
 
     /**
      * this method is called at the very beginning of the JavaFX application and can be used to initialize
@@ -114,14 +125,21 @@ public class DungeonShooter extends Application{
      * this method. this method does not run JavaFX thread.
      */
     @Override
-    public void init() throws Exception{
-        //Initialize the animators with FXCollections.observableArrayList and pass to it a new TextAnimator
-        animators = FXCollections.observableArrayList();
-        animators.add(new TextAnimator());
-        animators.add(new StaticShapes());
-
-        //initialize the board object
+    public void init() throws Exception {
+        // Initialize the board object
         board = new CanvasMap();
+
+        Animator animator = new Animator();
+
+        animator.setCanvas(board);
+
+        board.addSampleShapes();
+
+        board.setAnimator(animator);
+
+
+        //TODO: add players
+
         //create two ToolBar objects and store createStatusBar() and createOptionsBar() in each
         ToolBar optionsBBar = createOptionsBar();
         ToolBar statusBar = createStatusBar();
@@ -142,15 +160,6 @@ public class DungeonShooter extends Application{
         //root height. subtract can be done root.heightProperty().subtract( statusBar.heightProperty()).
         //you also need to subtract optionsBar.heightProperty as well.
         board.getCanvas().heightProperty().bind(root.heightProperty().subtract(statusBar.heightProperty()).subtract(optionsBBar.heightProperty()));
-
-        //loop through all animators and setCanvas as board
-        //animators.forEach(animator -> animator.setCanvas(board));
-        for (AbstractAnimator a: animators) {
-            a.setCanvas(board);
-        }
-
-        board.addSampleShapes();
-
     }
 
     /**
@@ -164,17 +173,18 @@ public class DungeonShooter extends Application{
      * {@link Scene} represents the holder of all your JavaFX {@link Node}s.<br>
      * {@link Node} is the super class of every javaFX class.
      * </p>
+     *
      * @param primaryStage - primary stage of your application that will be rendered
      */
     @Override
-    public void start( Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         //scene holds all JavaFX components that need to be displayed in Stage
-        Scene scene = new Scene( root, width, height, background);
-        primaryStage.setScene( scene);
-        primaryStage.setTitle( title);
+        Scene scene = new Scene(root, width, height, background);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle(title);
         // when escape key is pressed close the application
-        primaryStage.addEventHandler( KeyEvent.KEY_RELEASED, ( KeyEvent event) -> {
-            if( KeyCode.ESCAPE == event.getCode()){
+        primaryStage.addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {
+            if (KeyCode.ESCAPE == event.getCode()) {
                 primaryStage.hide();
             }
         });
@@ -182,7 +192,6 @@ public class DungeonShooter extends Application{
         primaryStage.show();
         //select first index of animatorsBox as start,
         //this will also sets the new animator as the lambda we setup will be triggered
-        animatorsBox.getSelectionModel().select(1);
     }
 
     /**
@@ -190,17 +199,18 @@ public class DungeonShooter extends Application{
      * this method is used to stop or release any resources used during the application.
      */
     @Override
-    public void stop() throws Exception{
+    public void stop() throws Exception {
         board.stop();
     }
 
     /**
      * create a {@link ToolBar} that represent the menu bar at the top of the application.
+     *
      * @return customized {@link ToolBar}
      */
-    public ToolBar createOptionsBar(){
+    public ToolBar createOptionsBar() {
         //use the createButton method and create a start button with lambda that calls board.start()
-        Button startButton = createButton("Start", e ->board.start());
+        Button startButton = createButton("Start", e -> board.start());
 //        Button startButton = createButton("Start", new EventHandler<ActionEvent>() {
 //            @Override
 //            public void handle(ActionEvent event) {
@@ -208,7 +218,7 @@ public class DungeonShooter extends Application{
 //            }
 //        });
         //use the createButton method and create a start button with lambda that calls board.stop()
-        Button stopButton = createButton("Stop", (ActionEvent e)->board.stop());
+        Button stopButton = createButton("Stop", (ActionEvent e) -> board.stop());
         // Button stopButton = createButton("Stop", (ActionEvent e)->board.stop());
 //        Button stopButton = createButton("Start", new EventHandler<ActionEvent>() {
 //            @Override
@@ -235,9 +245,6 @@ public class DungeonShooter extends Application{
         rayCount.setEditable(true);
         //call setMaxWidth on it and set 100, as default size it too big
         rayCount.setMaxWidth(100);
-        //get rayCount property from CanvasMap and bind it to rayCount.valueProperty().
-        //rayCount.valueProperty() should be passed as argument.
-        board.rayCountProperty().bind(rayCount.valueProperty());
 
         //create a MenuButton with argument "Options", null and all of created CheckMenuItem.
         //call createCheckBox 5 times and use following names:
@@ -254,35 +261,21 @@ public class DungeonShooter extends Application{
 //        MenuButton options = new MenuButton("Options", null, FPS, Intersects, Lights, Joints, Bounds, Sectors);
         MenuButton options = new MenuButton("Options", null, FPS, Bounds);
 
-        //Initialize animatorsBox with the animators list
-        animatorsBox = new ChoiceBox<>(animators);
-
-        //call getSelectionModel on animatorsBox then call selectedItemProperty and then call addListener.
-        //finally as argument for addListener pass a lambda that sets the new animator for CanvasMap.
-        //this Lambda is called ChangeListener and it takes 3 arguments:
-        //ObservableValue<? extends T> observable, it is an object that represent the observable data
-        //T oldValue, it is the old value before the change
-        //T newValue, it is the new value after the change
-        //this lambda will only use the newValue argument which passed to setAnimator of CanvasMap
-        animatorsBox.getSelectionModel().selectedItemProperty().addListener(
-                ((observable, oldValue, newValue) -> {
-                    board.setAnimator(newValue);
-                })
-        );
 
         // create a new ToolBar and as arguments of its constructor pass the create nodes.
         // there should be 8:
         // startButton, stopButton, filler1, rayCount,
         // options, filler2, new Label( "Animators "), animatorsBox
         // return the created ToolBar
-        return new ToolBar(startButton, stopButton, filler1, rayCount, options, filler2, new Label("Animators"), animatorsBox);
+        return new ToolBar(startButton, stopButton, filler1, rayCount, options, filler2, new Label("Animators"));
     }
 
     /**
      * create a {@link ToolBar} that will represent the status bar of the application.
+     *
      * @return customized {@link ToolBar}
      */
-    public ToolBar createStatusBar(){
+    public ToolBar createStatusBar() {
         // create two Label objects and with value of "(0,0)".
         // one label keeps track of mouse movement and other mouse drag.
         Label mouseCoordLabel = new Label("(0,0)");
@@ -307,7 +300,7 @@ public class DungeonShooter extends Application{
         // create a new ToolBar and as arguments of its constructor pass the create labels to it.
         // there should be 4 labels: new Label( "Mouse: "), mouseCoordLabel, new Label( "Drag: "), dragCoordLabel
         // return the created ToolBar
-        return new ToolBar(new Label( "Mouse: "), mouseCoordLabel, new Label( "Drag: "), dragCoordLabel);
+        return new ToolBar(new Label("Mouse: "), mouseCoordLabel, new Label("Drag: "), dragCoordLabel);
     }
 
     /**
@@ -333,12 +326,13 @@ public class DungeonShooter extends Application{
      * <p>
      * if p2 changes p1 changes as well. this relationship is NOT bidirectional.
      * </p>
-     * @param text - String to be displayed
+     *
+     * @param text       - String to be displayed
      * @param isSelected - initial state, true id selected
-     * @param binding - {@link BooleanProperty} that will be notified if state of this {@link CheckMenuItem} is changed
+     * @param binding    - {@link BooleanProperty} that will be notified if state of this {@link CheckMenuItem} is changed
      * @return customized {@link CheckMenuItem}
      */
-    public CheckMenuItem createCheckMenuItem(String text, boolean isSelected, BooleanProperty binding){
+    public CheckMenuItem createCheckMenuItem(String text, boolean isSelected, BooleanProperty binding) {
         // create a new CheckMenuItem object with given text.
         CheckMenuItem checkMenuItem = new CheckMenuItem(text);
 
@@ -355,11 +349,12 @@ public class DungeonShooter extends Application{
 
     /**
      * create a {@link Button} with given text and lambda for when it is clicked
-     * @param text - String to be displayed
+     *
+     * @param text   - String to be displayed
      * @param action - lambda for when the button is clicked, the lambda will take one argument of type ActionEvent
      * @return customized {@link Button}
      */
-    public Button createButton( String text, EventHandler<ActionEvent> action){
+    public Button createButton(String text, EventHandler<ActionEvent> action) {
         // create a new Button object with given text
         Button button = new Button(text);
 
@@ -372,9 +367,10 @@ public class DungeonShooter extends Application{
 
     /**
      * main starting point of the application
+     *
      * @param args - arguments provided through command line, if any
      */
-    public static void main(String[] args){
+    public static void main(String[] args) {
         // launch( args); method starts the javaFX application.
         // some IDEs are capable of starting JavaFX without this method.
         launch(args);
