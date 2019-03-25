@@ -9,14 +9,10 @@ import dungeonshooter.entity.property.HitBox;
 import javafx.animation.AnimationTimer;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.ImagePattern;
 
 import java.util.ArrayList;
@@ -39,7 +35,7 @@ public class CanvasMap {
      * is {@link GraphicsContext} which is retrieved using {@link Canvas#getGraphicsContext2D()} method.
      * </p>
      */
-    private Canvas board;
+    private Canvas map;
 
     /**
      * create a {@link AbstractAnimator} called animator. {@link AnimationTimer} provides
@@ -96,11 +92,10 @@ public class CanvasMap {
 
         staticShapes = new ArrayList<>(50);
 
-        board = new Canvas();
-        setDrawingCanvas(board);
+        setDrawingCanvas(new Canvas());
 
         //Initialize border
-        border = new PolyShape();
+        border = new PolyShape().setPoints(0, 0, 0, 0, 0, 0, 0, 0);
         border.getDrawable().setFill(new ImagePattern(
                 new Image( "file:assets/floor/pavin.png"), 0, 0, 256, 256, false));
     }
@@ -114,7 +109,7 @@ public class CanvasMap {
         if (map == null)
             throw new NullPointerException();
         else {
-            this.board = map;
+            this.map = map;
             map.heightProperty().addListener(event -> {
                 double height = map.getHeight();
                 double width = map.getWidth();
@@ -145,31 +140,6 @@ public class CanvasMap {
         start();
         return this;
     }
-
-    /**
-     * <p>
-     * register the given {@link EventType} and {@link EventHandler}
-     * </p>
-     *
-     * @param event   - an event such as {@link MouseEvent#MOUSE_MOVED}.
-     * @param handler - a lambda to be used when registered event is triggered.
-     */
-    public <E extends Event> void addEventHandler(EventType<E> event, EventHandler<E> handler) {
-        board.addEventHandler(event, handler);
-    }
-
-    /**
-     * <p>
-     * remove the given {@link EventType} registered with {@link EventHandler}
-     * </p>
-     *
-     * @param event   - an event such as {@link MouseEvent#MOUSE_MOVED}.
-     * @param handler - a lambda to be used when registered event is triggered.
-     */
-    public <E extends Event> void removeEventHandler(EventType<E> event, EventHandler<E> handler) {
-        board.removeEventHandler(event, handler);
-    }
-
     /**
      * create a method called start.
      * start the animator. {@link AnimationTimer#start()}
@@ -193,7 +163,7 @@ public class CanvasMap {
      * @return {@link Canvas} node
      */
     public Canvas getCanvas() {
-        return board;
+        return map;
     }
 
     /**
@@ -203,7 +173,7 @@ public class CanvasMap {
      * @return {@link GraphicsContext} of {@link Canvas}
      */
     public GraphicsContext gc() {
-        return board.getGraphicsContext2D();
+        return map.getGraphicsContext2D();
     }
 
     /**
@@ -213,7 +183,7 @@ public class CanvasMap {
      * @return height of canvas
      */
     public double h() {
-        return board.getHeight();
+        return map.getHeight();
     }
 
     /**
@@ -223,7 +193,7 @@ public class CanvasMap {
      * @return width of canvas
      */
     public double w() {
-        return board.getWidth();
+        return map.getWidth();
     }
 
     /**
@@ -238,16 +208,16 @@ public class CanvasMap {
      * Create a bunch of sample shapes
      */
     public CanvasMap addSampleShapes() {
-        staticShapes.add(new PolyShape().setPoints(90, 120, 150, 50, 300, 80, 200, 250));
+        staticShapes.add(new PolyShape().setPoints(50, 120, 110, 50, 260, 80, 160, 250));
                 //.setWidth(5).setStroke(Color.DARKRED).setFill(Color.LIGHTCORAL));
 
-        staticShapes.add(new PolyShape().randomize(600, 600, 150, 4, 6));
+        staticShapes.add(new PolyShape().randomize(540, 480, 130, 4, 6));
                 //.setWidth(5).setStroke(Color.DARKRED).setFill(Color.LIGHTCORAL));
 
-        staticShapes.add(new PolyShape().randomize(150, 600, 150, 4, 6));
+        staticShapes.add(new PolyShape().randomize(140, 480, 130, 4, 6));
                 //.setWidth(5).setStroke(Color.DARKRED).setFill(Color.LIGHTCORAL));
 
-        staticShapes.add(new PolyShape().randomize(620, 160, 150, 4, 6));
+        staticShapes.add(new PolyShape().randomize(540, 140, 130, 4, 6));
                 //.setWidth(5).setStroke(Color.DARKRED).setFill(Color.LIGHTCORAL));
 
         return this;

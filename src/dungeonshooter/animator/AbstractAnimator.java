@@ -4,13 +4,10 @@ import dungeonshooter.CanvasMap;
 import dungeonshooter.entity.Entity;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import dungeonshooter.entity.FpsCounter;
-import dungeonshooter.entity.PolyShape;
 import dungeonshooter.utility.Point;
 
-import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
@@ -43,9 +40,6 @@ public abstract class AbstractAnimator extends AnimationTimer {
         // intersectResult = new double[4];
         // Initialize fpsCounter
         fps = new FpsCounter(10, 20);
-        fps.setFill(Color.LIGHTGRAY);
-        fps.setStroke(Color.DARKGREEN);
-        fps.setWidth(2);
     }
 
     /**
@@ -69,10 +63,13 @@ public abstract class AbstractAnimator extends AnimationTimer {
     public void handle(long now) {
         GraphicsContext gc = map.gc();
 
+
+        handle(gc, now);
+
         if (map.getDrawFPS()) {
             fps.calculateFPS(now);
+            fps.getDrawable().draw(gc);
         }
-        handle(gc, now);
     }
 
     /**

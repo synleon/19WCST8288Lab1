@@ -126,33 +126,51 @@ public class DungeonShooter extends Application {
      */
     @Override
     public void init() throws Exception {
-        // Initialize the board object
+        // 1.1 create a javafx.scene.canvas.Canvas object
+        Canvas canvas = new Canvas();
+
+        // TODO: add 1.2 - 1.6
+
+        // 1.7 Initialize the board object
         board = new CanvasMap();
 
+        // TODO: add 1.8 - 1.10
+
+        // 1.11 Initialize Animator
         Animator animator = new Animator();
 
+        // 1.12 set CanvasMap to animator
         animator.setCanvas(board);
 
-        board.addSampleShapes();
+        // 1.13 set Canvas to CanvasMap
+        board.setDrawingCanvas(canvas);
 
+        // 1.14 set animator to CanvasMap
         board.setAnimator(animator);
 
+        // 1.15 add some sample shapes
+        board.addSampleShapes();
 
-        //TODO: add players
+        // TODO : 1.17 add player
 
-        //create two ToolBar objects and store createStatusBar() and createOptionsBar() in each
+
+        // 1.18 create two ToolBar objects and store createStatusBar() and createOptionsBar() in each
         ToolBar optionsBBar = createOptionsBar();
+
+        // 1.19 Add status bar
         ToolBar statusBar = createStatusBar();
 
-        //initialize root
+        // 1.20 initialize root
         root = new BorderPane();
-        //call setTop on it and pass to it the options bar
+
+        // 1.21 call setTop on it and pass to it the options bar
         root.setTop(optionsBBar);
-        //call setCenter on it and pass to it board.getCanvas()
+        // 1.22 call setCenter on it and pass to it board.getCanvas()
         root.setCenter(board.getCanvas());
-        //call setBottom on it and pass to it the status bar
+        // 1.23 call setBottom on it and pass to it the status bar
         root.setBottom(statusBar);
 
+        // 1.24 - 1.28
         //we need to bind the height and width of of canvas to root so if screen is resized board is resized as well.
         //to bind the width get the canvas from board first then call widthProperty on it and then bind root.widthProperty to it
         board.getCanvas().widthProperty().bind(root.widthProperty());
@@ -190,8 +208,6 @@ public class DungeonShooter extends Application {
         });
         // display the JavaFX application
         primaryStage.show();
-        //select first index of animatorsBox as start,
-        //this will also sets the new animator as the lambda we setup will be triggered
     }
 
     /**
@@ -281,21 +297,6 @@ public class DungeonShooter extends Application {
         Label mouseCoordLabel = new Label("(0,0)");
         Label dragCoordLabel = new Label("(0,0)");
 
-        // call addEventHandler on canvas for MouseEvent.MOUSE_MOVED event and pass a lambda to
-        // it that will update the text in one of the labels with the new coordinate of the mouse.
-        // the lambda will take one argument of type MouseEvent and two methods
-        // getX and getY from MouseEvnet can be used to get position of the mouse
-        board.addEventHandler(MouseEvent.MOUSE_MOVED, event -> {
-            mouseCoordLabel.setText("(" + event.getX() + "," + event.getY() + ")");
-        });
-
-        // call addEventHandler on canvas for MouseEvent.MOUSE_DRAGGED event and pass a lambda to
-        // it that will update the text in one of the labels with the new coordinate of the mouse.
-        // the lambda will take one argument of type MouseEvent and two methods
-        // getX and getY from MouseEvnet can be used to get position of the mouse
-        board.addEventHandler(MouseEvent.MOUSE_DRAGGED, event -> {
-            dragCoordLabel.setText("(" + event.getX() + "," + event.getY() + ")");
-        });
 
         // create a new ToolBar and as arguments of its constructor pass the create labels to it.
         // there should be 4 labels: new Label( "Mouse: "), mouseCoordLabel, new Label( "Drag: "), dragCoordLabel

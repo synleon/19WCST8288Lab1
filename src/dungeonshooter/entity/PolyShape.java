@@ -83,81 +83,11 @@ public class PolyShape implements Entity {
                 }
             }
         };
-        sprite.setFill( new ImagePattern( new Image( "file:assets/concrete/dsc_1621.png")))
+        sprite.setFill( new ImagePattern( new Image( "file:assets/concrete/rough645.png")))
                 .setWidth(1.0f).setStroke(Color.BLACK);
 
         hitBox = new HitBox();
     }
-
-//    @Override
-//    public PolyShape setFill(Color color) {
-//        this.fill = color;
-//        return this;
-//    }
-//
-//    @Override
-//    public PolyShape setStroke(Color color) {
-//        this.stroke = color;
-//        return this;
-//    }
-//
-//    @Override
-//    public PolyShape setWidth(double width) {
-//        this.strokeWidth = width;
-//        return this;
-//    }
-//
-//    @Override
-//    public Color getFill() {
-//        return fill;
-//    }
-//
-//    @Override
-//    public Color getStroke() {
-//        return stroke;
-//    }
-//
-//    @Override
-//    public double getWidth() {
-//        return strokeWidth;
-//    }
-
-//    /**
-//     * draw the shape
-//     *
-//     * @param gc - {@link GraphicsContext} object
-//     */
-//    @Override
-//    public void draw(GraphicsContext gc) {
-//        // set line width
-//        gc.setLineWidth(strokeWidth);
-//
-//        if (stroke != null) {
-//            gc.setStroke(stroke);
-//            gc.strokePolygon(points[0], points[1], pointCount);
-//        }
-//
-//        if (fill != null) {
-//            gc.setFill(fill);
-//            gc.fillPolygon(points[0], points[1], pointCount);
-//        }
-//    }
-
-//    /**
-//     * draw little circles on the corners of the shape plus a little number
-//     *
-//     * @param gc - {@link GraphicsContext} object
-//     */
-//    public void drawCorners(GraphicsContext gc) {
-//        for (int i = 0; i < pointCount; i++) {
-//            Paint fill = gc.getFill();
-//            gc.setFill(Color.BLACK);
-//            gc.fillText(Integer.toString(i), points[0][i] - 5, points[1][i] - 5);
-//            gc.fillOval(points[0][i] - 5, points[1][i] - 5, 10, 10);
-//            gc.setStroke(fill);
-//
-//        }
-//    }
 
     /**
      * get the x coordinates of the point with the index
@@ -246,7 +176,7 @@ public class PolyShape implements Entity {
 
         for (int j = 0; j < pointCount; ++j) {
             // generate R randomly
-            double r = Math.random() * size + 1;
+            double r = Math.random() * size / 2 + size / 2 + 1;
             // vertex of polygon described in polar coordinates
             points[0][j] = r * Math.cos(Math.toRadians(thetas[j])) + centerX;
             points[1][j] = r * Math.sin(Math.toRadians(thetas[j])) + centerY;
@@ -284,7 +214,10 @@ public class PolyShape implements Entity {
      */
     @Override
     public boolean hasHitbox() {
-        return true;
+        if (hitBox == null)
+            return false;
+        else
+            return true;
     }
 
     /**

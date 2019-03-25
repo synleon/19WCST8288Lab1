@@ -1,12 +1,14 @@
 package dungeonshooter.entity;
 
-import dungeonshooter.entity.property.DrawableObject;
+import dungeonshooter.entity.property.Drawable;
+import dungeonshooter.entity.property.HitBox;
+import dungeonshooter.entity.property.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class FpsCounter implements DrawableObject<FpsCounter> {
+public class FpsCounter implements Entity {
 
     public static final double ONE_SECOND = 1000000000L;
     public static final double HALF_SECOND = ONE_SECOND / 2F;
@@ -14,11 +16,10 @@ public class FpsCounter implements DrawableObject<FpsCounter> {
     private String fpsDisplay;
     private int frameCount;
     private double lastTime;
-    private double strokeWidth;
-    private Color fill;
-    private Color stroke;
     private double x;
     private double y;
+
+    private Sprite sprite;
 
     /**
      * default constructor
@@ -28,6 +29,21 @@ public class FpsCounter implements DrawableObject<FpsCounter> {
     public FpsCounter(double x, double y) {
         setFont(Font.font(Font.getDefault().getFamily(), FontWeight.BLACK, 24));
         setPos(x, y);
+        // Initialize sprite object
+        sprite = new Sprite() {
+            @Override
+            public void draw(GraphicsContext gc) {
+                Font font = gc.getFont();
+                gc.setFont(fpsFont);
+                // gc.setFill(getFill());
+                gc.fillText(fpsDisplay, x, y);
+                // gc.setStroke(stroke);
+                // gc.setLineWidth(strokeWidth);
+                gc.strokeText(fpsDisplay, x, y);
+                gc.setFont(font);
+            }
+        };
+        sprite.setFill(Color.LIGHTGRAY).setStroke(Color.DARKGREEN).setWidth(2);
     }
 
     public void calculateFPS(long now) {
@@ -50,48 +66,51 @@ public class FpsCounter implements DrawableObject<FpsCounter> {
         return this;
     }
 
+    /**
+     * update the entity
+     */
     @Override
-    public void draw(GraphicsContext gc) {
-        Font font = gc.getFont();
-        gc.setFont(fpsFont);
-        gc.setFill(getFill());
-        gc.fillText(fpsDisplay, x, y);
-        gc.setStroke(stroke);
-        gc.setLineWidth(strokeWidth);
-        gc.strokeText(fpsDisplay, x, y);
-        gc.setFont(font);
+    public void update() {
+
     }
 
+    /**
+     * whether this entity has a hitbox
+     *
+     * @return - true if has a hitbox - false if doesn't has a hitbox
+     */
     @Override
-    public FpsCounter setFill(Color color) {
-        this.fill = color;
-        return this;
+    public boolean hasHitbox() {
+        return false;
     }
 
+    /**
+     * get the sprite of the drawable object
+     *
+     * @return the sprite
+     */
     @Override
-    public FpsCounter setStroke(Color color) {
-        this.stroke = color;
-        return this;
+    public Sprite getDrawable() {
+        return sprite;
     }
 
+    /**
+     * whether this entity is drawable
+     *
+     * @return - true if drawable - false if not
+     */
     @Override
-    public FpsCounter setWidth(double width) {
-        this.strokeWidth = width;
-        return this;
+    public boolean isDrawable() {
+        return true;
     }
 
+    /**
+     * get the hitbox of current entity
+     *
+     * @return
+     */
     @Override
-    public Color getFill() {
-        return fill;
-    }
-
-    @Override
-    public Color getStroke() {
-        return stroke;
-    }
-
-    @Override
-    public double getWidth() {
-        return strokeWidth;
+    public HitBox getHitBox() {
+        return null;
     }
 }
