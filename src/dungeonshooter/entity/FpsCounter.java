@@ -1,6 +1,5 @@
 package dungeonshooter.entity;
 
-import dungeonshooter.entity.property.Drawable;
 import dungeonshooter.entity.property.HitBox;
 import dungeonshooter.entity.property.Sprite;
 import javafx.scene.canvas.GraphicsContext;

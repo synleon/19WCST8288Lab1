@@ -57,9 +57,19 @@ public class CanvasMap {
      */
     private BooleanProperty drawFPS;
 
+    /**
+     * List of players
+     */
     private List<Entity> players;
+
+    /**
+     * List of projectiles
+     */
     private List<Entity> projectiles;
 
+    /**
+     * list of buffers
+     */
     private List<Entity> buffer;
 
     /**
@@ -90,7 +100,15 @@ public class CanvasMap {
         drawBounds = new SimpleBooleanProperty();
         drawFPS = new SimpleBooleanProperty();
 
+        // initialize only 1 player
+        players = new ArrayList<>(1);
+
+        // initialize capacity for 50 static shapes
         staticShapes = new ArrayList<>(50);
+
+        // Initialize 500 projectiles and buffers
+        projectiles = new ArrayList<>(500);
+        buffer = new ArrayList<>(500);
 
         setDrawingCanvas(new Canvas());
 
@@ -237,18 +255,26 @@ public class CanvasMap {
 
     public void fireBullet(Bullet bullet) {
         //todo:
+        buffer.add(bullet);
     }
 
     public void updateProjectilesList() {
         //todo:
+        projectiles.addAll(buffer);
+        buffer.clear();
     }
 
     public PolyShape getMapShape() {
         return border;
     }
 
+    /**
+     * check if the HitBox argument is still within the boarder
+     * @param hitBox
+     * @return
+     */
     public boolean inMap(HitBox hitBox) {
         //TODO:
-        return false;
+        return border.getHitBox().containsBounds(hitBox);
     }
 }

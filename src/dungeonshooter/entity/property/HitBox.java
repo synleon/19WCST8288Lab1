@@ -1,10 +1,11 @@
 package dungeonshooter.entity.property;
 
-import dungeonshooter.entity.Entity;
 import dungeonshooter.entity.geometry.RectangleBounds;
 import dungeonshooter.utility.Point;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+
+import java.util.Arrays;
 
 /**
  * class representing the outer rectangular bounds of a shape
@@ -54,6 +55,14 @@ public class HitBox{
     }
 
     /**
+     * Get the current HitBox
+     * @return
+     */
+    public HitBox getHitBox() {
+        return this;
+    }
+
+    /**
      * get the sprite of the drawable object
      *
      * @return the sprite
@@ -88,8 +97,9 @@ public class HitBox{
      * @param w - width
      * @param h - height
      */
-    public void setBounds(double x, double y, double w, double h) {
+    public HitBox setBounds(double x, double y, double w, double h) {
         bounds = new RectangleBounds(x, y, w, h);
+        return this;
     }
 
     public HitBox translate(double dx, double dy) {
@@ -130,6 +140,17 @@ public class HitBox{
      * @return true if intersect fully false if not
      */
     public boolean intersectFull(HitBox box) {
+        //TODO:
+        return false;
+    }
+
+    /**
+     * Determine whether input points intersect fully with current box
+     * @param otherPoints
+     * @return
+     */
+    protected boolean intersectFull(double[][] otherPoints) {
+        //TODO:
         return false;
     }
 
@@ -159,4 +180,21 @@ public class HitBox{
     protected double[][] getPoints() {
         return bounds.toArray(points);
     }
+
+    /**
+     * Overridden version to toString
+     * @return
+     */
+    @Override
+    public String toString() {
+        return "HitBox{" +
+                "prev=" + prev +
+                ", bounds=" + bounds +
+                ", sprite=" + sprite +
+                ", points=" + Arrays.toString(points) +
+                ", result=" + Arrays.toString(result) +
+                '}';
+    }
+
+
 }

@@ -97,7 +97,7 @@ public abstract class AbstractAnimator extends AnimationTimer {
      * @param gc GraphicsContext object
      */
     public void drawEntities(GraphicsContext gc) {
-        Consumer<Entity> draw = entity -> {
+         Consumer<Entity> draw = entity -> {
             if (entity.isDrawable()) {
                 entity.getDrawable().draw(gc);
                 if (map.getDrawBounds()) {
@@ -110,8 +110,8 @@ public abstract class AbstractAnimator extends AnimationTimer {
 
         map.staticShapes().forEach(draw);
 
-//        map.projectiles().forEach(draw);
-//
-//        map.players().forEach(draw);
+        map.projectiles().forEach(draw);
+
+        map.players().forEach(draw);
     }
 }
