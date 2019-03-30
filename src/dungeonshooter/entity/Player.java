@@ -7,12 +7,13 @@ import dungeonshooter.utility.Point;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
+import javafx.geometry.Point2D;
 
 
 /**
  * class represents one player
  */
-public class Player implements Entity{
+public class Player implements Entity {
 
     /**
      * Rotation used to rotate the player icon
@@ -68,6 +69,7 @@ public class Player implements Entity{
 
     /**
      * Constructor
+     *
      * @param x
      * @param y
      * @param w
@@ -75,7 +77,7 @@ public class Player implements Entity{
      */
     public Player(double x, double y, double w, double h) {
 
-        // create a rotation player with default constructord
+        // create a rotation player with default constructor
         rotationPlayer = new Rotate();
 
         pos = new Point(x - w / 2, y - 5 / 2);
@@ -88,35 +90,46 @@ public class Player implements Entity{
             //player and muzzle each have 20 and 16 set of images than can be loaded
             private final Image[] PLAYER = new Image[20];
             private final Image[] MUZZLE = new Image[16];
+
             {
-//load the images
-                for( int i = 0; i < PLAYER.length; i++){
-                    PLAYER[i] = new Image( "file:assets\\rifle\\idle\\survivor-idle_rifle_" + i + ".png");
+                //load the images
+                for (int i = 0; i < PLAYER.length; i++) {
+                    PLAYER[i] = new Image("file:assets\\rifle\\idle\\survivor-idle_rifle_" + i + ".png");
                 }
-                for( int i = 0; i < MUZZLE.length; i++){
-                    MUZZLE[i] = new Image( "file:assets\\muzzle_flashs\\m_" + i + ".png");
+                for (int i = 0; i < MUZZLE.length; i++) {
+                    MUZZLE[i] = new Image("file:assets\\muzzle_flashs\\m_" + i + ".png");
                 }
             }
+
             @Override
             public void draw(GraphicsContext gc) {
                 gc.save();
-//rotate gc for drawing
-                gc.setTransform( rotationPlayer.getMxx(), rotationPlayer.getMyx(),
-                        rotationPlayer.getMxy(), rotationPlayer.getMyy(),rotationPlayer.getTx(), rotationPlayer.getTy());
-//if left click display fire animation
-                if( input.leftClicked()){
-                    gc.drawImage( MUZZLE[(int) muzzleFrame], getRifleMuzzleX() - 8, getRifleMuzzleY() - 25, 50, 50); //this number is how fast the next frame of fire animation will be drawn. The higher the faster.
+                //rotate gc for drawing
+                calculateAngles();
+                gc.setTransform(rotationPlayer.getMxx(), rotationPlayer.getMyx(),
+                        rotationPlayer.getMxy(), rotationPlayer.getMyy(),
+                        rotationPlayer.getTx(), rotationPlayer.getTy());
+                //if left click display fire animation
+                if (input.leftClicked()) {
+                    gc.drawImage(MUZZLE[(int) muzzleFrame],
+                            getRifleMuzzleX() - 8, getRifleMuzzleY() - 25,
+                            50, 50); //this number is how fast the next frame of fire animation will be drawn. The higher the faster.
                     muzzleFrame += .5;
+
+                    // calculate the starting point of bullet using rotation
+                    Point2D point = rotationPlayer.transform(getRifleMuzzleX(), getRifleMuzzleY());
+                    Bullet bullet = new Bullet(angle, point.getX(), point.getY());
+                    map.fireBullet(bullet);
                 }
-//darw player image
-                gc.drawImage( PLAYER[(int) playerFrame], pos.x(), pos.y(), dimension.x(), dimension.y());
+                //draw player image
+                gc.drawImage(PLAYER[(int) playerFrame], pos.x(), pos.y(), dimension.x(), dimension.y());
                 gc.restore(); // this number is how fast the next frame of player animation will be drawn. The higher the faster.
                 playerFrame += 0.25;
-//reset frame counts if reach the max frame
-                if( playerFrame >= PLAYER.length){
+                //reset frame counts if reach the max frame
+                if (playerFrame >= PLAYER.length) {
                     playerFrame = 0;
                 }
-                if( muzzleFrame >= MUZZLE.length || !input.leftClicked()){
+                if (muzzleFrame >= MUZZLE.length || !input.leftClicked()) {
                     muzzleFrame = 0;
                 }
             }
@@ -124,11 +137,14 @@ public class Player implements Entity{
 
         double size = h * .74;
 
-        hitBox = new HitBox().setBounds(pos.x() + dimension.x() * 0.33 - size / 2, pos.y() + dimension.y() * .58 - size / 2, size, size);
+        hitBox = new HitBox().setBounds(pos.x() + dimension.x() * 0.33 - size / 2,
+                pos.y() + dimension.y() * .58 - size / 2,
+                size, size);
     }
 
     /**
      * setter method for map
+     *
      * @param map
      * @return
      */
@@ -138,7 +154,17 @@ public class Player implements Entity{
     }
 
     /**
+     * setter for player input
+     *
+     * @param input PlayerInput object
+     */
+    public void setInput(PlayerInput input) {
+        this.input = input;
+    }
+
+    /**
      * calculate the center x of player
+     *
      * @return
      */
     public double getPlayerCenterX() {
@@ -147,6 +173,7 @@ public class Player implements Entity{
 
     /**
      * calculate the center y of player
+     *
      * @return
      */
     public double getPlayerCenterY() {
@@ -155,6 +182,7 @@ public class Player implements Entity{
 
     /**
      * calculate the center x of muzzle
+     *
      * @return
      */
     public double getRifleMuzzleX() {
@@ -163,6 +191,7 @@ public class Player implements Entity{
 
     /**
      * calculate the center y of muzzle
+     *
      * @return
      */
     public double getRifleMuzzleY() {
@@ -173,7 +202,7 @@ public class Player implements Entity{
      * find which direction the bullet should fly if any and what directly the player image should be rotated to
      */
     public void calculateAngles() {
-        double angle = Math.toDegrees( Math.atan2( input.y() - getPlayerCenterY(), input.x() - getPlayerCenterX()));
+        this.angle = Math.toDegrees(Math.atan2(input.y() - getPlayerCenterY(), input.x() - getPlayerCenterX()));
         rotationPlayer.setAngle(angle);
         rotationPlayer.setPivotX(getPlayerCenterX());
         rotationPlayer.setPivotY(getPlayerCenterY());
@@ -187,6 +216,7 @@ public class Player implements Entity{
         // undo last move
         pos.move(prev);
     }
+
     /**
      * update the entity
      */

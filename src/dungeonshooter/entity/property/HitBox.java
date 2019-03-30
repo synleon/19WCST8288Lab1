@@ -1,6 +1,8 @@
 package dungeonshooter.entity.property;
 
+import dungeonshooter.entity.Entity;
 import dungeonshooter.entity.geometry.RectangleBounds;
+import dungeonshooter.utility.IntersectUtil;
 import dungeonshooter.utility.Point;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -10,7 +12,7 @@ import java.util.Arrays;
 /**
  * class representing the outer rectangular bounds of a shape
  */
-public class HitBox{
+public class HitBox implements Entity {
     private Point prev;
     private RectangleBounds bounds;
     private Sprite sprite;
@@ -98,7 +100,7 @@ public class HitBox{
      * @param h - height
      */
     public HitBox setBounds(double x, double y, double w, double h) {
-        bounds = new RectangleBounds(x, y, w, h);
+        setBounds(new RectangleBounds(x, y, w, h));
         return this;
     }
 
@@ -116,21 +118,21 @@ public class HitBox{
     /**
      * checks if a hitbox is completely within current hitbox
      *
-     * @param box - input HitBox
+     * @param hitBox - input HitBox
      * @return true if current hitbox contains the input hitbox, false if not
      */
-    public boolean containsBounds(HitBox box) {
-        return bounds.contains(box.getBounds());
+    public boolean containsBounds(HitBox hitBox) {
+        return bounds.contains(hitBox.getBounds());
     }
 
     /**
      * check if a hitbox is within and or overlapping the current box.
      *
-     * @param box - input HitBox
+     * @param hitBox - input HitBox
      * @return true if intersect false if not
      */
-    public boolean intersectBounds(HitBox box) {
-        return bounds.intersects(box.getBounds());
+    public boolean intersectBounds(HitBox hitBox) {
+        return bounds.intersects(hitBox.getBounds());
     }
 
     /**
@@ -140,8 +142,7 @@ public class HitBox{
      * @return true if intersect fully false if not
      */
     public boolean intersectFull(HitBox box) {
-        //TODO:
-        return false;
+        return intersectFull( box.getPoints());
     }
 
     /**
@@ -150,7 +151,17 @@ public class HitBox{
      * @return
      */
     protected boolean intersectFull(double[][] otherPoints) {
-        //TODO:
+        // outer loop loop current hitbox points
+
+        // IntersectUtil.getIntersection(result, )
+
+        //TODO
+
+        return false;
+    }
+
+    protected boolean hasIntersectFull() {
+        // TODO
         return false;
     }
 
@@ -195,6 +206,4 @@ public class HitBox{
                 ", result=" + Arrays.toString(result) +
                 '}';
     }
-
-
 }

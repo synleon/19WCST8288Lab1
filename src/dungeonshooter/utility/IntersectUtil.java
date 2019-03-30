@@ -21,7 +21,9 @@ public class IntersectUtil{
      * @param sey - line segment end y
      * @return true if intersect and data stored in {@link AnimatorSingleRay#RESULT} array else false.
      */
-    public static boolean getIntersection( double[] result, double rsx, double rsy, double rex, double rey, double ssx, double ssy, double sex, double sey){
+    public static boolean getIntersection( double[] result,
+                                           double rsx, double rsy, double rex, double rey,
+                                           double ssx, double ssy, double sex, double sey){
         // given 2 line segments as vectors their intersect will q + tr or p + us where
         // q and p are the starting point in from of (x, y),
         // r and s are the distance of end point to start point in form of ( x2-x1, y2-y1),

@@ -51,6 +51,7 @@ public class Bullet implements Entity{
      * @param h height
      */
     public Bullet(double angle, double x, double y, double w, double h) {
+        this.angle = angle;
         // Initialize the hitbox
         hitBox = new HitBox();
         hitBox.setBounds(x, y, w, h);

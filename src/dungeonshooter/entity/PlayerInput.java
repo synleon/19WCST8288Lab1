@@ -122,18 +122,14 @@ public class PlayerInput extends InputAdapter<Canvas> {
      * <p>
      * called when the mouse is moving, not dragged, in the area of the registered {@link Node}.
      * </p>
-     * <p>
-     * this method will never have a body, a simple template to be overridden. super call to this method is not needed.
-     * </p>
      *
-     * @param x - current x position of mouse in registered Node
-     * @param y - current y position of mouse in registered Node
+     * @param x current x position of mouse in registered Node
+     * @param y current y position of mouse in registered Node
      */
     @Override
     protected void moved(double x, double y) {
         this.x = x;
         this.y = y;
-        super.moved(x, y);
     }
 
     public void changeKeyStatus(KeyCode key, boolean isPressed) {
@@ -165,9 +161,6 @@ public class PlayerInput extends InputAdapter<Canvas> {
      * <p>
      * called while one of the keys on the is pressed and mouse is moving in the area of registered {@link Node}.
      * </p>
-     * <p>
-     * this method will never have a body, a simple template to be overridden. super call to this method is not needed.
-     * </p>
      *
      * @param x - current x position of mouse in registered Node
      * @param y - current y position of mouse in registered Node
@@ -176,16 +169,12 @@ public class PlayerInput extends InputAdapter<Canvas> {
     protected void dragged(double x, double y) {
         this.x = x;
         this.y = y;
-        super.dragged(x, y);
     }
 
     /**
      * <p>
      * called when a keyboard key is pressed. works only when the registered {@link Node} has focus.
      * to force focus call {@link InputAdapter#forceFocusWhenMouseEnters}. it will also call {@link InputAdapter#keyPressed}.
-     * </p>
-     * <p>
-     * if this method is overridden, in the overridden method a super call to this method should be provided as this method is not empty.
      * </p>
      *
      * @param e - event object holding relevant information.
@@ -201,9 +190,6 @@ public class PlayerInput extends InputAdapter<Canvas> {
      * called when a keyboard key is released. works only when the registered {@link Node} has focus.
      * to force focus call {@link InputAdapter#forceFocusWhenMouseEnters}. it will also call {@link InputAdapter#keyReleased}.
      * </p>
-     * <p>
-     * if this method is overridden, in the overridden method a super call to this method should be provided as this method is not empty.
-     * </p>
      *
      * @param e - event object holding relevant information.
      */
@@ -216,9 +202,6 @@ public class PlayerInput extends InputAdapter<Canvas> {
     /**
      * <p>
      * called when one of they keys on the mouse is released. it will also call {@link InputAdapter#released}.
-     * </p>
-     * <p>
-     * if this method is overridden, in the overridden method a super call to this method should be provided as this method is not empty.
      * </p>
      *
      * @param e - event object holding relevant information.
@@ -233,9 +216,6 @@ public class PlayerInput extends InputAdapter<Canvas> {
      * <p>
      * called when of the keys on the mouse is pressed. it will also call {@link InputAdapter#pressed}.
      * </p>
-     * <p>
-     * if this method is overridden, in the overridden method a super call to this method should be provided as this method is not empty.
-     * </p>
      *
      * @param e - event object holding relevant information.
      */
@@ -248,5 +228,4 @@ public class PlayerInput extends InputAdapter<Canvas> {
         this.middleClick = e.isMiddleButtonDown();
         super.mousePressed(e);
     }
-
 }

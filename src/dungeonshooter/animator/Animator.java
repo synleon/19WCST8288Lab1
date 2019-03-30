@@ -1,6 +1,8 @@
 package dungeonshooter.animator;
 
+import dungeonshooter.entity.Bullet;
 import dungeonshooter.entity.Entity;
+import dungeonshooter.entity.Player;
 import dungeonshooter.entity.PolyShape;
 import dungeonshooter.entity.property.HitBox;
 import javafx.scene.canvas.GraphicsContext;
@@ -25,39 +27,61 @@ public class Animator extends AbstractAnimator {
     }
 
     public void updateEntities() {
+
         map.updateProjectilesList();
 
-//        for (Entity entity : map.players()) {
-//            entity.update();
-//        }
+        for (Entity entity : map.projectiles()) {
+            entity.update();
+        }
 
-//        for (Entity entity : map.projectiles()) {
-//            entity.update();
-//        }
+        for (Entity entity : map.players()) {
+            entity.update();
+        }
 
         for (PolyShape e : map.staticShapes()) {
             e.update();
         }
 
-//        if (map.getDrawBounds()) {
-//            // loop update each bullet
-//            // loop update each player
-//            for (Entity player : map.players()) {
-//                player.getHitBox().getDrawable().setStroke(Color.RED);
-//            }
-//        }
+        if (map.getDrawBounds()) {
+            // loop update each bullet
+            map.projectiles().forEach(e -> e.getHitBox().getDrawable().setStroke(Color.RED));
+            // loop update each player
+            map.players().forEach(entity -> entity.getHitBox().getDrawable().setStroke(Color.RED));
+        }
 
-//        for (PolyShape shape : map.staticShapes()) {
-//            // proccessEntityList(map.bulltes().iterator(), shape.getHitBox());
-//            proccessEntityList(map.players().iterator(), shape.getHitBox());
-//        }
+        map.staticShapes().forEach(e -> {
+            proccessEntityList(map.projectiles().iterator(), e.getHitBox());
+            proccessEntityList(map.players().iterator(), e.getHitBox());
+        });
     }
 
     public void proccessEntityList(Iterator<Entity> iterator, HitBox shapeHitBox) {
         while (iterator.hasNext()) {
             Entity entity = iterator.next();
-            HitBox hitbox = entity.getHitBox();
+            HitBox bounds = entity.getHitBox();
             //TODO:
+            if (!map.inMap(bounds)) {
+                if (entity instanceof Player) {
+                    ((Player) entity).stepBack();
+                }
+                else if (entity instanceof Bullet) {
+                    iterator.remove();
+                }
+            }
+            else if (shapeHitBox.intersectBounds(bounds)) {
+                if (map.getDrawBounds()) {
+                    bounds.getDrawable().setStroke(Color.BLUEVIOLET);
+                }
+
+                if (shapeHitBox.intersectFull(bounds)) {
+                    if (entity instanceof Player) {
+                        ((Player) entity).stepBack();
+                    }
+                    else if (entity instanceof Bullet) {
+                        iterator.remove();
+                    }
+                }
+            }
         }
     }
 }

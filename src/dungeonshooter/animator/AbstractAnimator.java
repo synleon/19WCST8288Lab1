@@ -37,7 +37,6 @@ public abstract class AbstractAnimator extends AnimationTimer {
      */
     protected AbstractAnimator() {
         mouse = new Point();
-        // intersectResult = new double[4];
         // Initialize fpsCounter
         fps = new FpsCounter(10, 20);
     }
@@ -62,7 +61,6 @@ public abstract class AbstractAnimator extends AnimationTimer {
     @Override
     public void handle(long now) {
         GraphicsContext gc = map.gc();
-
 
         handle(gc, now);
 
@@ -94,10 +92,11 @@ public abstract class AbstractAnimator extends AnimationTimer {
 
     /**
      * Draw all the antities
+     *
      * @param gc GraphicsContext object
      */
     public void drawEntities(GraphicsContext gc) {
-         Consumer<Entity> draw = entity -> {
+        Consumer<Entity> draw = entity -> {
             if (entity.isDrawable()) {
                 entity.getDrawable().draw(gc);
                 if (map.getDrawBounds()) {
@@ -106,12 +105,16 @@ public abstract class AbstractAnimator extends AnimationTimer {
             }
         };
 
+        // draw the background map
         draw.accept(map.getMapShape());
 
+        // draw static shapes
         map.staticShapes().forEach(draw);
 
+        // draw all projectiles
         map.projectiles().forEach(draw);
 
+        // draw all players
         map.players().forEach(draw);
     }
 }

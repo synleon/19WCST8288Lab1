@@ -3,6 +3,7 @@ package dungeonshooter;
 import java.util.List;
 
 import dungeonshooter.animator.Animator;
+import dungeonshooter.entity.Player;
 import dungeonshooter.entity.PlayerInput;
 import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
@@ -22,7 +23,6 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -129,12 +129,33 @@ public class DungeonShooter extends Application {
         // 1.1 create a javafx.scene.canvas.Canvas object
         Canvas canvas = new Canvas();
 
-        // TODO: add 1.2 - 1.6
+        // 1.2
+        PlayerInput input = new PlayerInput();
+
+        // 1.3
+        input.forceFocusWhenMouseEnters(canvas);
+
+        // 1.4
+        input.registerMouseMovment(canvas);
+
+        // 1.5
+        input.registerMouseClick(canvas);
+
+        //1.6
+        input.registerKey(canvas);
+
 
         // 1.7 Initialize the board object
         board = new CanvasMap();
 
-        // TODO: add 1.8 - 1.10
+        // 1.8
+        Player player = new Player(350, 300, 100, 100);
+
+        // 1.9
+        player.setInput(input);
+
+        // 1.10
+        player.setMap(board);
 
         // 1.11 Initialize Animator
         Animator animator = new Animator();
@@ -151,8 +172,8 @@ public class DungeonShooter extends Application {
         // 1.15 add some sample shapes
         board.addSampleShapes();
 
-        // TODO : 1.17 add player
-
+        // 1.17 add player
+        board.players().add(player);
 
         // 1.18 create two ToolBar objects and store createStatusBar() and createOptionsBar() in each
         ToolBar optionsBBar = createOptionsBar();
@@ -171,12 +192,7 @@ public class DungeonShooter extends Application {
         root.setBottom(statusBar);
 
         // 1.24 - 1.28
-        //we need to bind the height and width of of canvas to root so if screen is resized board is resized as well.
-        //to bind the width get the canvas from board first then call widthProperty on it and then bind root.widthProperty to it
         board.getCanvas().widthProperty().bind(root.widthProperty());
-        //to bind the height it is almost the same process however the height of options and status bar need to be subtracted from
-        //root height. subtract can be done root.heightProperty().subtract( statusBar.heightProperty()).
-        //you also need to subtract optionsBar.heightProperty as well.
         board.getCanvas().heightProperty().bind(root.heightProperty().subtract(statusBar.heightProperty()).subtract(optionsBBar.heightProperty()));
     }
 

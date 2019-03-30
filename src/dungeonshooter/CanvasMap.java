@@ -97,6 +97,7 @@ public class CanvasMap {
      * create a constructor and initialize all class variables.
      */
     public CanvasMap() {
+        // two switch controlling whether HitBox and FPS should be drew on canvas
         drawBounds = new SimpleBooleanProperty();
         drawFPS = new SimpleBooleanProperty();
 
@@ -110,18 +111,20 @@ public class CanvasMap {
         projectiles = new ArrayList<>(500);
         buffer = new ArrayList<>(500);
 
-        setDrawingCanvas(new Canvas());
-
         //Initialize border
         border = new PolyShape().setPoints(0, 0, 0, 0, 0, 0, 0, 0);
         border.getDrawable().setFill(new ImagePattern(
                 new Image( "file:assets/floor/pavin.png"), 0, 0, 256, 256, false));
+
+        setDrawingCanvas(new Canvas());
+
+
     }
 
     /**
      * setter method for canvas
      * @param map canvas
-     * @return itself
+     * @return this
      */
     public CanvasMap setDrawingCanvas(Canvas map) {
         if (map == null)
@@ -253,13 +256,16 @@ public class CanvasMap {
         return projectiles;
     }
 
+    /**
+     * called by player when left mouse is clicked
+     * @param bullet
+     */
     public void fireBullet(Bullet bullet) {
         //todo:
         buffer.add(bullet);
     }
 
     public void updateProjectilesList() {
-        //todo:
         projectiles.addAll(buffer);
         buffer.clear();
     }

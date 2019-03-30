@@ -65,13 +65,24 @@ public class PolyShape implements Entity {
     private Sprite sprite;
 
     public PolyShape() {
+
+        hitBox = new HitBox() {
+            protected boolean hasIntersectFull(){
+                return true;
+            }
+            protected double[][] getPoints(){
+                return points;
+            }
+        };
         // initialize sprite
         sprite = new Sprite() {
+            {
+                setFill( new ImagePattern( new Image( "file:assets/concrete/dsc_1621.png")));
+            }
             @Override
             public void draw(GraphicsContext gc) {
                 // set line width
                 gc.setLineWidth(getWidth());
-
                 if (getStroke() != null) {
                     gc.setStroke(getStroke());
                     gc.strokePolygon(points[0], points[1], pointCount);
@@ -83,10 +94,10 @@ public class PolyShape implements Entity {
                 }
             }
         };
-        sprite.setFill( new ImagePattern( new Image( "file:assets/concrete/rough645.png")))
-                .setWidth(1.0f).setStroke(Color.BLACK);
+//        sprite.setFill( new ImagePattern( new Image( "file:assets/concrete/rough645.png")))
+//                .setWidth(1.0f).setStroke(Color.BLACK);
 
-        hitBox = new HitBox();
+
     }
 
     /**

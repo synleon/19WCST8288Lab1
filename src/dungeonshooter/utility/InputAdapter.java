@@ -475,7 +475,7 @@ public abstract class InputAdapter< N extends Node> {
      * @param e - event object holding relevant information.
      */
     protected void mouseMoved( MouseEvent e){
-        moved( e.getX(), e.getY());
+        moved(e.getX(), e.getY());
     }
 }
 
