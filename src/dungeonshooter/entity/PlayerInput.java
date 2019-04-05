@@ -1,7 +1,9 @@
 package dungeonshooter.entity;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import dungeonshooter.utility.InputAdapter;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -36,6 +38,8 @@ public class PlayerInput extends InputAdapter<Canvas> {
      * Constructor
      */
     public PlayerInput() {
+        space = new SimpleBooleanProperty();
+        shift = new SimpleBooleanProperty();
     }
 
     /**

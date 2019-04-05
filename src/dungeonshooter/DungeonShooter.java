@@ -149,7 +149,7 @@ public class DungeonShooter extends Application {
         board = new CanvasMap();
 
         // 1.8
-        Player player = new Player(350, 300, 100, 100);
+        Player player = new Player(350, 300, 70, 46);
 
         // 1.9
         player.setInput(input);
@@ -166,14 +166,14 @@ public class DungeonShooter extends Application {
         // 1.13 set Canvas to CanvasMap
         board.setDrawingCanvas(canvas);
 
-        // 1.14 set animator to CanvasMap
-        board.setAnimator(animator);
-
         // 1.15 add some sample shapes
         board.addSampleShapes();
 
         // 1.17 add player
         board.players().add(player);
+
+        // 1.14 set animator to CanvasMap
+        board.setAnimator(animator);
 
         // 1.18 create two ToolBar objects and store createStatusBar() and createOptionsBar() in each
         ToolBar optionsBBar = createOptionsBar();

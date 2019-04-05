@@ -9,6 +9,8 @@ import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
 import javafx.geometry.Point2D;
 
+import java.util.Arrays;
+
 
 /**
  * class represents one player
@@ -110,7 +112,7 @@ public class Player implements Entity {
                         rotationPlayer.getMxy(), rotationPlayer.getMyy(),
                         rotationPlayer.getTx(), rotationPlayer.getTy());
                 //if left click display fire animation
-                if (input.leftClicked()) {
+                if (input.leftClicked()||input.isSpace()) {
                     gc.drawImage(MUZZLE[(int) muzzleFrame],
                             getRifleMuzzleX() - 8, getRifleMuzzleY() - 25,
                             50, 50); //this number is how fast the next frame of fire animation will be drawn. The higher the faster.
@@ -222,7 +224,16 @@ public class Player implements Entity {
      */
     @Override
     public void update() {
-
+        if (input.hasMoved()) {
+            // save previous position
+            prev.set(pos.x(), pos.y());
+            double dx = input.leftOrRight() * 2;
+            double dy = input.upOrDown() * 2;
+            // update position
+            pos.move(pos.x() + dx, pos.y() + dy);
+            // update hitbox
+            hitBox.translate(dx, dy);
+        }
     }
 
     /**

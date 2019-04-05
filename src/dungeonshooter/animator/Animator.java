@@ -49,6 +49,7 @@ public class Animator extends AbstractAnimator {
             map.players().forEach(entity -> entity.getHitBox().getDrawable().setStroke(Color.RED));
         }
 
+        // loop to check every staticShape has intersected with every payer and projectile
         map.staticShapes().forEach(e -> {
             proccessEntityList(map.projectiles().iterator(), e.getHitBox());
             proccessEntityList(map.players().iterator(), e.getHitBox());

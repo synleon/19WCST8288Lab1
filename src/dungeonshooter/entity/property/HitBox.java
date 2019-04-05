@@ -111,7 +111,8 @@ public class HitBox implements Entity {
     }
 
     public HitBox undoTranslate() {
-        bounds.move(prev);
+        if (prev.x() != 0.0 && prev.y() != 0.0)
+            bounds.move(prev);
         return this;
     }
 
