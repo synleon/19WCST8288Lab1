@@ -56,11 +56,17 @@ public class Animator extends AbstractAnimator {
         });
     }
 
+    /**
+     *
+     * @param iterator
+     * @param shapeHitBox
+     */
     public void proccessEntityList(Iterator<Entity> iterator, HitBox shapeHitBox) {
         while (iterator.hasNext()) {
             Entity entity = iterator.next();
             HitBox bounds = entity.getHitBox();
-            //TODO:
+
+            // If entity is not in the bounds of border, move player back step, remove projectile
             if (!map.inMap(bounds)) {
                 if (entity instanceof Player) {
                     ((Player) entity).stepBack();
@@ -69,11 +75,15 @@ public class Animator extends AbstractAnimator {
                     iterator.remove();
                 }
             }
+            // if entity intersects a bound of static shape
             else if (shapeHitBox.intersectBounds(bounds)) {
+
+                // change players'/projectiles' hitbox color
                 if (map.getDrawBounds()) {
                     bounds.getDrawable().setStroke(Color.BLUEVIOLET);
                 }
 
+                //
                 if (shapeHitBox.intersectFull(bounds)) {
                     if (entity instanceof Player) {
                         ((Player) entity).stepBack();

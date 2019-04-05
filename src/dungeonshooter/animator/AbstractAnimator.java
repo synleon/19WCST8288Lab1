@@ -38,7 +38,7 @@ public abstract class AbstractAnimator extends AnimationTimer {
     protected AbstractAnimator() {
         mouse = new Point();
         // Initialize fpsCounter
-        fps = new FpsCounter(110, 20);
+        fps = new FpsCounter(10, 20);
     }
 
     /**
