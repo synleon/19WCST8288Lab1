@@ -83,12 +83,18 @@ public class HitBox implements Entity {
     }
 
     /**
-     * version 1 of setter method of bounds
+     * setBounds should be called only one time when the entity
+     * that has a hitbox is created, otherwise the hitbox of the
+     * entity will be move to (0,0) when hit a boundary because prev
+     * has initial value (0,0)
      *
      * @param bounds
      */
     public void setBounds(RectangleBounds bounds) {
         this.bounds = bounds;
+
+        // give prev a initial value equal to
+        prev.set(bounds.x(), bounds.y());
     }
 
     /**
@@ -111,8 +117,7 @@ public class HitBox implements Entity {
     }
 
     public HitBox undoTranslate() {
-        if (prev.x() != 0.0 && prev.y() != 0.0)
-            bounds.move(prev);
+        bounds.move(prev);
         return this;
     }
 
