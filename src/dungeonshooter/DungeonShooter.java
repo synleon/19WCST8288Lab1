@@ -5,6 +5,7 @@ import java.util.List;
 import dungeonshooter.animator.Animator;
 import dungeonshooter.entity.Player;
 import dungeonshooter.entity.PlayerInput;
+import dungeonshooter.entity.WeaponIndicator;
 import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
@@ -149,7 +150,7 @@ public class DungeonShooter extends Application {
         board = new CanvasMap();
 
         // 1.8
-        Player player = new Player(350, 300, 70, 46);
+        Player player = new Player(350, 300, 70, 46, Player.WEAPON.SHOTGUN);
 
         // 1.9
         player.setInput(input);
@@ -166,14 +167,18 @@ public class DungeonShooter extends Application {
         // 1.13 set Canvas to CanvasMap
         board.setDrawingCanvas(canvas);
 
+        // 1.17 add player
+        board.players().add(player);
+
+        board.setWeapon(new WeaponIndicator(100, 20).setPlayer(player));
+
         // 1.14 set animator to CanvasMap
         board.setAnimator(animator);
 
         // 1.15 add some sample shapes
         board.addSampleShapes();
 
-        // 1.17 add player
-        board.players().add(player);
+
 
         // 1.18 create two ToolBar objects and store createStatusBar() and createOptionsBar() in each
         ToolBar optionsBBar = createOptionsBar();

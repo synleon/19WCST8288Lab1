@@ -16,6 +16,12 @@ import java.util.Arrays;
  * class represents one player
  */
 public class Player implements Entity {
+    public enum WEAPON {KNIFE, RIFLE, SHOTGUN};
+
+    /**
+     * Weapon type
+     */
+    private WEAPON weapon;
 
     /**
      * Rotation used to rotate the player icon
@@ -69,6 +75,10 @@ public class Player implements Entity {
      */
     private CanvasMap map;
 
+    public Player(double x, double y, double w, double h) {
+        this(x, y, w, h, WEAPON.RIFLE);
+    }
+
     /**
      * Constructor
      *
@@ -77,7 +87,7 @@ public class Player implements Entity {
      * @param w
      * @param h
      */
-    public Player(double x, double y, double w, double h) {
+    public Player(double x, double y, double w, double h, WEAPON weapon) {
 
         // create a rotation player with default constructor
         rotationPlayer = new Rotate();
@@ -88,6 +98,8 @@ public class Player implements Entity {
 
         dimension = new Point(w, h);
 
+        this.weapon = weapon;
+
         sprite = new Sprite() {
             //player and muzzle each have 20 and 16 set of images than can be loaded
             private final Image[] PLAYER = new Image[20];
@@ -96,7 +108,19 @@ public class Player implements Entity {
             {
                 //load the images
                 for (int i = 0; i < PLAYER.length; i++) {
-                    PLAYER[i] = new Image("file:assets\\rifle\\idle\\survivor-idle_rifle_" + i + ".png");
+                    switch (weapon) {
+                        case RIFLE:
+                            PLAYER[i] = new Image("file:assets\\rifle\\idle\\survivor-idle_rifle_" + i + ".png");
+                            break;
+                        case KNIFE:
+                            PLAYER[i] = new Image("file:assets\\knife\\idle\\survivor-idle_knife_" + i + ".png");
+                            break;
+                        case SHOTGUN:
+                            PLAYER[i] = new Image("file:assets\\shotgun\\idle\\survivor-idle_shotgun_" + i + ".png");
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 for (int i = 0; i < MUZZLE.length; i++) {
                     MUZZLE[i] = new Image("file:assets\\muzzle_flashs\\m_" + i + ".png");
@@ -198,6 +222,14 @@ public class Player implements Entity {
      */
     public double getRifleMuzzleY() {
         return pos.y() + dimension.y() * .73;
+    }
+
+    /**
+     * getter for weapon type
+     * @return
+     */
+    public WEAPON getWeapon() {
+        return weapon;
     }
 
     /**

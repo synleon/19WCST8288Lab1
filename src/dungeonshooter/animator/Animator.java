@@ -42,6 +42,8 @@ public class Animator extends AbstractAnimator {
             e.update();
         }
 
+        map.getWeapon().update();
+
         if (map.getDrawBounds()) {
             // loop update each bullet
             map.projectiles().forEach(e -> e.getHitBox().getDrawable().setStroke(Color.RED));
@@ -84,7 +86,7 @@ public class Animator extends AbstractAnimator {
                 }
 
                 //
-                if (shapeHitBox.intersectFull(bounds)) {
+                if (shapeHitBox.intersectBounds(bounds)) {
                     if (entity instanceof Player) {
                         ((Player) entity).stepBack();
                     }

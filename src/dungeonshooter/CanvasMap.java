@@ -5,6 +5,7 @@ import dungeonshooter.animator.Animator;
 import dungeonshooter.entity.Bullet;
 import dungeonshooter.entity.Entity;
 import dungeonshooter.entity.PolyShape;
+import dungeonshooter.entity.WeaponIndicator;
 import dungeonshooter.entity.property.HitBox;
 import javafx.animation.AnimationTimer;
 import javafx.beans.property.BooleanProperty;
@@ -73,6 +74,12 @@ public class CanvasMap {
     private List<Entity> buffer;
 
     /**
+     * Weapon Indicator
+     */
+    private WeaponIndicator weapon;
+
+
+    /**
      * list of shapes
      */
     private List<PolyShape> staticShapes;
@@ -119,6 +126,14 @@ public class CanvasMap {
         setDrawingCanvas(new Canvas());
 
 
+    }
+
+    public void setWeapon(WeaponIndicator weapon) {
+        this.weapon = weapon;
+    }
+
+    public WeaponIndicator getWeapon() {
+        return weapon;
     }
 
     /**

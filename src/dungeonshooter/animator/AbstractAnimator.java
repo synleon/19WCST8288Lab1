@@ -2,6 +2,7 @@ package dungeonshooter.animator;
 
 import dungeonshooter.CanvasMap;
 import dungeonshooter.entity.Entity;
+import dungeonshooter.entity.WeaponIndicator;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -116,5 +117,7 @@ public abstract class AbstractAnimator extends AnimationTimer {
 
         // draw all players
         map.players().forEach(draw);
+
+        map.getWeapon().getDrawable().draw(gc);
     }
 }
