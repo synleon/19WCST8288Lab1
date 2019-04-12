@@ -252,15 +252,15 @@ public class Player implements Entity {
     }
 
     /**
-     * update the entity
+     * ddddddddddddddddddd the entity
      */
     @Override
     public void update() {
         if (input.hasMoved()) {
             // save previous position
             prev.set(pos.x(), pos.y());
-            double dx = input.leftOrRight() * 2;
-            double dy = input.upOrDown() * 2;
+            double dx = input.leftOrRight() * 5;
+            double dy = input.upOrDown() * 5;
             // update position
             pos.move(pos.x() + dx, pos.y() + dy);
             // update hitbox

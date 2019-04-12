@@ -1,5 +1,6 @@
 package dungeonshooter.entity.property;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import dungeonshooter.entity.Entity;
 import dungeonshooter.entity.geometry.RectangleBounds;
 import dungeonshooter.utility.IntersectUtil;
@@ -148,7 +149,7 @@ public class HitBox implements Entity {
      * @return true if intersect fully false if not
      */
     public boolean intersectFull(HitBox box) {
-        return intersectFull( box.getPoints());
+        return intersectFull(box.getPoints());
     }
 
     /**
@@ -158,16 +159,49 @@ public class HitBox implements Entity {
      */
     protected boolean intersectFull(double[][] otherPoints) {
         // outer loop loop current hitbox points
+        double[][] points = getPoints();
+        int numberOfPointsShape = points[0].length;
+        int numberOfPointsEntity = otherPoints[0].length;
 
-        // IntersectUtil.getIntersection(result, )
+        double rsx, rsy, rex, rey, ssx, ssy, sex, sey;
+        for (int i = 0; i < numberOfPointsShape; i++) {
+            for (int j = 0; j < numberOfPointsEntity; j++) {
+                // line segment of current hitbox
+                rsx = points[0][i];
+                rsy = points[1][i];
+                if (i != numberOfPointsShape - 1) {
+                    rex = points[0][i + 1];
+                    rey = points[1][i + 1];
+                }
+                else{
+                    rex = points[0][0];
+                    rey = points[1][0];
+                }
+                // line segment of entity hitbix
+                ssx = otherPoints[0][j];
+                ssy = otherPoints[1][j];
+                if (j != numberOfPointsEntity - 1) {
+                    sex = otherPoints[0][j + 1];
+                    sey = otherPoints[1][j + 1];
+                }
+                else {
+                    sex = otherPoints[0][0];
+                    sey = otherPoints[1][0];
+                }
+                //
+                boolean isIntersect = IntersectUtil.getIntersection(result, rsx, rsy, rex, rey, ssx, ssy, sex, sey);
 
-        //TODO
-
+                if (isIntersect) {
+                    if (result[2] <= 1) {
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
     protected boolean hasIntersectFull() {
-        // TODO
         return false;
     }
 

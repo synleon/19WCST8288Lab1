@@ -24,6 +24,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -318,6 +319,21 @@ public class DungeonShooter extends Application {
         Label mouseCoordLabel = new Label("(0,0)");
         Label dragCoordLabel = new Label("(0,0)");
 
+        // call addEventHandler on canvas for MouseEvent.MOUSE_MOVED event and pass a lambda to
+        // it that will update the text in one of the labels with the new coordinate of the mouse.
+        // the lambda will take one argument of type MouseEvent and two methods
+        // getX and getY from MouseEvnet can be used to get position of the mouse
+        board.addEventHandler(MouseEvent.MOUSE_MOVED, event -> {
+            mouseCoordLabel.setText("(" + event.getX() + "," + event.getY() + ")");
+        });
+
+        // call addEventHandler on canvas for MouseEvent.MOUSE_DRAGGED event and pass a lambda to
+        // it that will update the text in one of the labels with the new coordinate of the mouse.
+        // the lambda will take one argument of type MouseEvent and two methods
+        // getX and getY from MouseEvnet can be used to get position of the mouse
+        board.addEventHandler(MouseEvent.MOUSE_DRAGGED, event -> {
+            dragCoordLabel.setText("(" + event.getX() + "," + event.getY() + ")");
+        });
 
         // create a new ToolBar and as arguments of its constructor pass the create labels to it.
         // there should be 4 labels: new Label( "Mouse: "), mouseCoordLabel, new Label( "Drag: "), dragCoordLabel

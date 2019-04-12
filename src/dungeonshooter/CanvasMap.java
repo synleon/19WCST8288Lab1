@@ -10,6 +10,9 @@ import dungeonshooter.entity.property.HitBox;
 import javafx.animation.AnimationTimer;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -297,5 +300,17 @@ public class CanvasMap {
     public boolean inMap(HitBox hitBox) {
         //TODO:
         return border.getHitBox().containsBounds(hitBox);
+    }
+
+    /**
+     * <p>
+     * register the given {@link EventType} and {@link EventHandler}
+     * </p>
+     *
+     * @param event   - an event such as MouseEvent#MOUSE_MOVED
+     * @param handler - a lambda to be used when registered event is triggered.
+     */
+    public <E extends Event> void addEventHandler(EventType<E> event, EventHandler<E> handler) {
+        map.addEventHandler(event, handler);
     }
 }

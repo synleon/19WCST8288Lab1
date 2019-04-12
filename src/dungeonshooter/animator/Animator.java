@@ -85,8 +85,7 @@ public class Animator extends AbstractAnimator {
                     bounds.getDrawable().setStroke(Color.BLUEVIOLET);
                 }
 
-                //
-                if (shapeHitBox.intersectBounds(bounds)) {
+                if (shapeHitBox.intersectFull(bounds)) {
                     if (entity instanceof Player) {
                         ((Player) entity).stepBack();
                     }
