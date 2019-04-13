@@ -28,6 +28,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import raycast.animator.AbstractAnimator;
+import raycast.animator.MultiRayAnimator;
 import raycast.animator.StaticShapes;
 import raycast.animator.TextAnimator;
 
@@ -121,6 +122,7 @@ public class RayCast extends Application{
         animators = FXCollections.observableArrayList();
         animators.add(new TextAnimator());
         animators.add(new StaticShapes());
+        animators.add(new MultiRayAnimator());
 
         //initialize the board object
         board = new CanvasMap();
@@ -184,7 +186,7 @@ public class RayCast extends Application{
         primaryStage.show();
         //select first index of animatorsBox as start,
         //this will also sets the new animator as the lambda we setup will be triggered
-        animatorsBox.getSelectionModel().select(1);
+        animatorsBox.getSelectionModel().select(2);
     }
 
     /**
