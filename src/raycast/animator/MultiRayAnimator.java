@@ -43,7 +43,7 @@ public class MultiRayAnimator extends AbstractAnimator {
     public void drawLine(GraphicsContext gc, Color color, double sx, double sy, double ex, double ey){
         gc.setLineWidth( 1);
         gc.setStroke( color);
-        gc.setFill( Color.MAGENTA);
+        gc.setFill( Color.RED);
         gc.strokeLine( sx, sy, ex, ey);
         if(map.getDrawIntersectPoint()){
             gc.fillOval( ex - 5, ey - 5, 10, 10);

@@ -122,6 +122,8 @@ public class RayCast extends Application{
         animators.add(new StaticShapes());
         animators.add(new MultiRayAnimator());
         animators.add(new SingleRayAnimator());
+        animators.add(new EndPointsRayAnimator());
+        animators.add(new PointLightAnimator());
 
         //initialize the board object
         board = new CanvasMap();

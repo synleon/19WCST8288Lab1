@@ -311,16 +311,31 @@ public class CanvasMap {
      * Create a bunch of sample shapes
      */
     public void addSampleShapes() {
+        // add border polygon
+        PolyShape border = new PolyShape().setPoints(0, 0, 0, 0, 0, 0, 0, 0);
+        board.heightProperty().addListener(event -> {
+            double height = getCanvas().getHeight();
+            double width = getCanvas().getWidth();
+            border.setPoints(0, 0, width, 0, width, height, 0, height);
+        });
+        board.widthProperty().addListener(event -> {
+            double height = getCanvas().getHeight();
+            double width = getCanvas().getWidth();
+            border.setPoints(0, 0, width, 0, width, height, 0, height);
+        });
+
+        shapes.add(border);
+
         shapes.add(new PolyShape().setPoints(90, 120, 150, 50, 300, 80, 200, 250)
                 .setWidth(5).setStroke(Color.DARKRED).setFill(Color.LIGHTCORAL));
 
-        shapes.add(new PolyShape().randomize(600, 600, 150, 4, 6)
+        shapes.add(new PolyShape().randomize(600, 600, 150, 3, 3)
                 .setWidth(5).setStroke(Color.DARKRED).setFill(Color.LIGHTCORAL));
 
-        shapes.add(new PolyShape().randomize(150, 600, 150, 4, 6)
+        shapes.add(new PolyShape().randomize(150, 600, 150, 3, 3)
                 .setWidth(5).setStroke(Color.DARKRED).setFill(Color.LIGHTCORAL));
 
-        shapes.add(new PolyShape().randomize(620, 160, 150, 4, 6)
+        shapes.add(new PolyShape().randomize(620, 160, 150, 3, 3)
                 .setWidth(5).setStroke(Color.DARKRED).setFill(Color.LIGHTCORAL));
     }
 }
