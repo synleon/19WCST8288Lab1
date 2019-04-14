@@ -105,7 +105,7 @@ public class CanvasMap {
         return drawLightSource;
     }
 
-    public boolean getsDrawIntersectPoint() {
+    public boolean getDrawIntersectPoint() {
         return drawIntersectPoint.get();
     }
 

@@ -2,6 +2,7 @@ package raycast;
 
 import java.util.List;
 
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -27,10 +28,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import raycast.animator.AbstractAnimator;
-import raycast.animator.MultiRayAnimator;
-import raycast.animator.StaticShapes;
-import raycast.animator.TextAnimator;
+import raycast.animator.*;
 
 
 /**
@@ -123,6 +121,7 @@ public class RayCast extends Application{
         animators.add(new TextAnimator());
         animators.add(new StaticShapes());
         animators.add(new MultiRayAnimator());
+        animators.add(new SingleRayAnimator());
 
         //initialize the board object
         board = new CanvasMap();

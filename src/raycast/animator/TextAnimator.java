@@ -53,9 +53,5 @@ public class TextAnimator extends AbstractAnimator{
     public TextAnimator() {
         super();
     }
-
-    public TextAnimator(int number) {
-        super(number);
-    }
 }
 

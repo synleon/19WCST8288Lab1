@@ -43,17 +43,12 @@ public abstract class AbstractAnimator extends AnimationTimer {
      */
     protected AbstractAnimator() {
         mouse = new Point();
-        // intersectResult = new double[4];
+        intersectResult = new double[4];
         // Initialize fpsCounter
         fps = new FpsCounter(10, 20);
         fps.setFill(Color.LIGHTGRAY);
         fps.setStroke(Color.DARKGREEN);
         fps.setWidth(2);
-    }
-
-    protected AbstractAnimator(int number) {
-        this();
-        intersectResult = new double[number];
     }
 
     /**

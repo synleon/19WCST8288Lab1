@@ -4,7 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import raycast.entity.geometry.PolyShape;
 
-public class MultiRayAnimator extends AbstractAnimator {
+public class SingleRayAnimator extends AbstractAnimator{
     /**
      * Array to store the result (intersectResult) of intersection between rays fired from the
      * location of mouse to different shapes.
@@ -23,7 +23,7 @@ public class MultiRayAnimator extends AbstractAnimator {
     /**
      * create a protected constructor and initialize the {@link AbstractAnimator#mouse} variable
      */
-    public MultiRayAnimator() {
+    public SingleRayAnimator() {
         super();
     }
 
@@ -37,7 +37,10 @@ public class MultiRayAnimator extends AbstractAnimator {
     void handle(GraphicsContext gc, long now) {
         clearAndFill(gc, backgroundColor);
         map.shapes().forEach(v -> v.draw(gc));
-        drawRays(gc, mouse.x(), mouse.y(), lightColor);
+        double centerX = map.getCanvas().getWidth() / 2.0;
+        double centerY = map.getCanvas().getHeight() / 2.0;
+        //drawRays(gc, mouse.x(), mouse.y(), lightColor);
+        drawRays(gc, centerX, centerY, lightColor);
     }
 
     public void drawLine(GraphicsContext gc, Color color, double sx, double sy, double ex, double ey){
@@ -73,14 +76,12 @@ public class MultiRayAnimator extends AbstractAnimator {
      */
     @Override
     public String toString() {
-        return "MultiRayAnimator";
+        return "SingleRayAnimator";
     }
 
     public void drawRays(GraphicsContext gc, double startX, double startY, Color color) {
-        rayIncrementer = 360d / map.getRayCount();
-        for (double rayAngle = 0; rayAngle < 360; rayAngle += rayIncrementer) {
-            endX = Math.cos(Math.toRadians(rayAngle));
-            endY = Math.sin(Math.toRadians(rayAngle));
+            endX = mouse.x() - startX;
+            endY = mouse.y() - startY;
             for (PolyShape shape : map.shapes()) {
                 for (int i = 0, j = shape.getPointCount() - 1; i < shape.getPointCount(); i++, j = i - 1) {
                     if (getIntersection(startX, startY, startX + endX, startY + endY,
@@ -93,6 +94,5 @@ public class MultiRayAnimator extends AbstractAnimator {
             }
             drawLine(gc, lightColor, startX, startY, intersectPoint[0], intersectPoint[1]);
             intersectPoint[2] = Double.MAX_VALUE;
-        }
     }
 }

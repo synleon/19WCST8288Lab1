@@ -242,4 +242,12 @@ public class PolyShape implements DrawableObject<PolyShape> {
     public RectangleBounds getBounds() {
         return bounds;
     }
+
+    /**
+     * getter method for pointCount
+     * @return
+     */
+    public int getPointCount() {
+        return pointCount;
+    }
 }
